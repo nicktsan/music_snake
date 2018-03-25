@@ -37,6 +37,7 @@ class Player:
 	length = 3
 	ai = False
 	angle = 90
+	alive = True
  
 	updateCountMax = 2
 	updateCount = 0
@@ -78,12 +79,17 @@ class Player:
  
 				self.updateCount = 0
 				self.hp -= 1
+		elif self.hp <= 0 and self.alive:
+			print "in player.update"
+			self.kill()
  
  	def kill(self):
  		self.hp = 0
  		self.x = 0
  		self.y = 0
  		self.length = 0
+ 		self.alive = False
+ 		print "Player %i died!" % self.player_id
 
 	def moveRight(self):
 		self.direction = 0
@@ -293,10 +299,12 @@ class App:
 			if player.hp > 0:
 				player.update()
 				if (player.x[0] >= self.board_width or player.y[0] >= self.board_height or player.x[0] < 0 or player.y[0] < 0):
+					print "in on_loop check for outofbounds"
 					player.kill()
-			else:
+			elif player.alive and player.hp <= 0:
+				print "check for hp <= 0"
 				player.kill()
-
+		kill_list = []
 		for player in self.players:
 			if player.hp > 0:
 				# does snake collide with itself?
@@ -306,10 +314,7 @@ class App:
 							if enemy.player_id == player.player_id and i == 0:
 								continue
 							if self.game.isCollision(player.x[0], player.y[0], enemy.x[i], enemy.y[i],self.board_width, self.board_height):
-								print("You lose player %i! Collision with player %i: ") % (player.player_id, enemy.player_id)
-								print("x[0] (" + str(player.x[0]) + "," + str(player.y[0]) + ")")
-								print("x[" + str(i) + "] (" + str(player.x[i]) + "," + str(player.y[i]) + ")")
-								player.kill()
+								kill_list.append(player)
 
 				# does snake eat apple?
 				for i in range(0, player.length):
@@ -320,8 +325,12 @@ class App:
 							player.y.append(player.y[player.length-1])
 							player.length += 1
 							player.hp = 250
-			else:
+			elif player.alive and player.hp <= 0:
+				print "checking collision"
 				player.kill()
+		for player in kill_list:
+			print "killing wave"
+			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
  
 	def on_render(self):
