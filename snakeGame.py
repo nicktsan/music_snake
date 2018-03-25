@@ -1,6 +1,7 @@
 from battlesnake_functions import *
 from pygame.locals import *
 from random import randint
+import random
 import pygame
 import time
 import math
@@ -199,8 +200,11 @@ class App:
 						quit()
 					if setting_ai == True and setting_food == True:
 						if event.key == pygame.K_RETURN:
-							final_ai = int(num_ai)
-							settings = False
+							try:
+								final_ai = int(num_ai)
+								settings = False
+							except ValueError:
+								print "Only accepts integers."
 						elif event.key == pygame.K_BACKSPACE:
 							num_ai = num_ai[:-1]
 							self._display_surf.fill((255,255,255))
@@ -209,8 +213,11 @@ class App:
 							self._display_surf.fill((255,255,255))
 					if setting_food == True and setting_ai == False:
 						if event.key == pygame.K_RETURN:
-							final_food = int(num_food)
-							setting_ai = True
+							try:
+								final_food = int(num_food)
+								setting_ai = True
+							except ValueError:
+								print "Only accepts integers."
 						elif event.key == pygame.K_BACKSPACE:
 							num_food = num_food[:-1]
 							self._display_surf.fill((255,255,255))
@@ -219,8 +226,11 @@ class App:
 							self._display_surf.fill((255,255,255))
 					if setting_food == False and setting_ai == False:
 						if event.key == pygame.K_RETURN:
-							final_players = int(num_players)
-							setting_food = True
+							try:
+								final_players = int(num_players)
+								setting_food = True
+							except ValueError:
+								print "Only accepts integers."
 						elif event.key == pygame.K_BACKSPACE:
 							num_players = num_players[:-1]
 							self._display_surf.fill((255,255,255))
@@ -264,9 +274,29 @@ class App:
 		return players
 
 	def calc_move(self, player):
-		directions = ['up', 'down', 'left', 'right']
-
-		return 0
+		if player.updateCount == player.updateCountMax:
+			directions = ['up', 'down', 'left', 'right']
+			is_left = check_left(player.x[0], player.y[0], self.board)
+			is_right = check_right(player.x[0], player.y[0], self.board)
+			is_up = check_up(player.x[0], player.y[0], self.board)
+			is_down = check_down(player.x[0], player.y[0], self.board)
+			if is_up:
+				directions.remove('up')
+			if is_down:
+				directions.remove('down')
+			if is_left:
+				directions.remove('left')
+			if is_right:
+				directions.remove('right')
+			direction = random.choice(directions)
+			if direction == 'up':
+				player.moveUp()
+			if direction == 'down':
+				player.moveDown()
+			if direction == 'left':
+				player.moveLeft()
+			if direction == 'right':
+				player.moveRight()
 
 	def on_init(self):
 		self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
@@ -294,7 +324,8 @@ class App:
  
 	def on_loop(self):
 		for player in self.players:
-			player.update(self.board_height, self.board_width)
+			if player.hp > 0:
+				player.update(self.board_height, self.board_width)
 
 		kill_list = []
 		for player in self.players:
@@ -316,10 +347,13 @@ class App:
 							player.x.append(player.x[player.length-1])
 							player.y.append(player.y[player.length-1])
 							player.length += 1
-							player.hp = 250
+							player.hp = 100
 		for player in kill_list:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
+		for player in self.players:
+			if player.ai:
+				self.calc_move(player)
  
 	def on_render(self):
 		self._display_surf.fill((255,255,255))
@@ -345,40 +379,36 @@ class App:
 	def on_execute(self):
 		if self.on_init() == False:
 			self._running = False
-
-		self.game_intro()
-
-		num_players, num_apples, num_ai = self.game_settings()
-
-		self.players = self.create_players(self.players, self.board_width, num_players, num_ai)
-
-		self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
- 
-		while( self._running ):
-			pygame.event.pump()
-			keys = pygame.key.get_pressed()
-			for player in self.players:
- 				if not player.ai:
-					if (keys[K_RIGHT]):
-						player.moveRight()
- 
-					if (keys[K_LEFT]):
-						player.moveLeft()
- 
-					if (keys[K_UP]):
-						player.moveUp()
- 
-					if (keys[K_DOWN]):
-						player.moveDown()
- 
-					if (keys[K_ESCAPE]):
-						self._running = False
- 				else:
- 					self.calc_move(player)
-			self.on_loop()
-			self.on_render()
- 
-			time.sleep (50.0 / 1000.0);
+		while(self._running):
+			self.game_intro()
+			num_players, num_apples, num_ai = self.game_settings()
+			self.players = self.create_players(self.players, self.board_width, num_players, num_ai)
+			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
+			all_alive = True
+			while(all_alive):
+				pygame.event.pump()
+				keys = pygame.key.get_pressed()
+				alive_status = 0
+				alive_status = []
+				if keys[K_ESCAPE]:
+					all_alive = False
+				for player in self.players:
+ 					if not player.ai:
+						if (keys[K_RIGHT]):
+							player.moveRight()
+						if (keys[K_LEFT]):
+							player.moveLeft()
+						if (keys[K_UP]):
+							player.moveUp()
+						if (keys[K_DOWN]):
+							player.moveDown()
+				self.on_loop()
+				self.on_render()
+				for player in self.players:
+					alive_status.append(player.alive)
+				if not any(alive_status):
+					all_alive = False
+				time.sleep (50.0 / 1000.0);
 		self.on_cleanup()
  
 if __name__ == "__main__" :
