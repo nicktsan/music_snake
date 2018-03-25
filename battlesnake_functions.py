@@ -67,7 +67,7 @@ def update_board(players, apples, width, height):
 				y = player.y[index]
 				board[y][x] = [player.player_id, index]
 	for i in range(0, len(apples)):
-		board[y][x] = i+1
+		board[apples[i].y][apples[i].x] = i+1
 	return board
 
 #find slope between two points. Keep in mind for battlesnake the 

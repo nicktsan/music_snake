@@ -240,7 +240,6 @@ class App:
 		#do a maximum of 4 players
 	def create_players(self, players, board_width, num_players, num_ai):
 		total_snakes = num_players + num_ai
-		print "total number of snakes: %i" % total_snakes
 		spawn_location = int(board_width/3)
 		for p in range(1, total_snakes+1):
 			new_snake = 0
@@ -293,20 +292,24 @@ class App:
 		for player in self.players:
 			if player.hp > 0:
 				player.update()
+				if (player.x[0] >= self.board_width or player.y[0] >= self.board_height or player.x[0] < 0 or player.y[0] < 0):
+					player.kill()
+			else:
+				player.kill()
 
 		for player in self.players:
 			if player.hp > 0:
 				# does snake collide with itself?
 				for enemy in self.players:
-					for i in range(0, enemy.length):
-						if enemy.player_id == player.player_id and i == 0:
-							continue
-						if self.game.isCollision(player.x[0], player.y[0], enemy.x[i], enemy.y[i],self.board_width, self.board_height):
-							print("You lose player %i! Collision with player %i: ") % (player.player_id, enemy.player_id)
-							print("x[0] (" + str(player.x[0]) + "," + str(player.y[0]) + ")")
-							print("x[" + str(i) + "] (" + str(player.x[i]) + "," + str(player.y[i]) + ")")
-							player.kill()
-							exit(0)
+					if enemy.hp > 0:
+						for i in range(0, enemy.length):
+							if enemy.player_id == player.player_id and i == 0:
+								continue
+							if self.game.isCollision(player.x[0], player.y[0], enemy.x[i], enemy.y[i],self.board_width, self.board_height):
+								print("You lose player %i! Collision with player %i: ") % (player.player_id, enemy.player_id)
+								print("x[0] (" + str(player.x[0]) + "," + str(player.y[0]) + ")")
+								print("x[" + str(i) + "] (" + str(player.x[i]) + "," + str(player.y[i]) + ")")
+								player.kill()
 
 				# does snake eat apple?
 				for i in range(0, player.length):
@@ -317,7 +320,9 @@ class App:
 							player.y.append(player.y[player.length-1])
 							player.length += 1
 							player.hp = 250
-				self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
+			else:
+				player.kill()
+		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
  
 	def on_render(self):
 		self._display_surf.fill((255,255,255))
