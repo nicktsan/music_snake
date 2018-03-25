@@ -1,1 +1,2 @@
-# music_snake
+# musical_snake
+musical snake for MUS 407
