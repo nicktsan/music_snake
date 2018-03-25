@@ -30,7 +30,7 @@ class Apple:
  
 class Player:
 	player_id = 0
-	hp = 250
+	hp = 100
 	x = 0
 	y = 0
 	direction = 2
@@ -57,7 +57,7 @@ class Player:
 		self.y.append(y0+1)
 		self.y.append(y0+2)
  
-	def update(self):
+	def update(self, height, width):
  		if self.hp > 0:
 			self.updateCount += 1
 			if self.updateCount > self.updateCountMax:
@@ -66,7 +66,6 @@ class Player:
 					self.x[i] = self.x[i-1]
 					self.y[i] = self.y[i-1]
 					
- 
 				# update position of head of snake
 				if self.direction == 0:
 					self.x[0] = self.x[0] + 1
@@ -79,9 +78,8 @@ class Player:
  
 				self.updateCount = 0
 				self.hp -= 1
-		elif self.hp <= 0 and self.alive:
-			print "in player.update"
-			self.kill()
+				if (self.x[0] >= width or self.y[0] >= height or self.x[0] < 0 or self.y[0] < 0 or self.hp <= 0):
+					self.kill()
  
  	def kill(self):
  		self.hp = 0
@@ -296,14 +294,8 @@ class App:
  
 	def on_loop(self):
 		for player in self.players:
-			if player.hp > 0:
-				player.update()
-				if (player.x[0] >= self.board_width or player.y[0] >= self.board_height or player.x[0] < 0 or player.y[0] < 0):
-					print "in on_loop check for outofbounds"
-					player.kill()
-			elif player.alive and player.hp <= 0:
-				print "check for hp <= 0"
-				player.kill()
+			player.update(self.board_height, self.board_width)
+
 		kill_list = []
 		for player in self.players:
 			if player.hp > 0:
@@ -325,11 +317,7 @@ class App:
 							player.y.append(player.y[player.length-1])
 							player.length += 1
 							player.hp = 250
-			elif player.alive and player.hp <= 0:
-				print "checking collision"
-				player.kill()
 		for player in kill_list:
-			print "killing wave"
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
  
