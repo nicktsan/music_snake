@@ -133,7 +133,7 @@ def checkIfSnakeHead(boardLocation):
 def ifSnakeisBiggerAtLocation(boardLocation, mylength, snake_list):
 	#boardLocation is what is in board[y][x]
 	for snake in snake_list:
-		if(snake.id == boardLocation[0]):
+		if(snake.player_id == boardLocation[0]):
 			snakelength = snake.length
 			break
 	#if your snake is larger, return true. Otherwise, return false.
@@ -187,7 +187,7 @@ def checkOneTileAway(board, x, y, mylength, snake_list):
 	return numberObstacles
 
 
-def seek_apple(mysnake_head, apples, snake_list, mysnake):
+def seek_apple(apples, snake_list, mysnake):
 	x2 = mysnake.x[0]
 	y2 = mysnake.y[0]
 	coordinate = []
@@ -201,10 +201,9 @@ def seek_apple(mysnake_head, apples, snake_list, mysnake):
 		desperation.append([distance, x1, y1])
 		# get the coordinate of all other snakes
 		for other_snake in snake_list:
-			if (other_snake.id != mysnake.id): 
-				othersnake_head = (other_snake.x[0], other_snake.y[0])
-				x3 = othersnake_head[0]
-				y3 = othersnake_head[1]
+			if (other_snake.player_id != mysnake.player_id and other_snake.hp > 0):
+				x3 = other_snake.x[0]
+				y3 = other_snake.y[0]
 				other_distance = calc_distance(x1,y1,x3,y3)
 				if (distance < other_distance):
 					continue
@@ -219,14 +218,11 @@ def seek_apple(mysnake_head, apples, snake_list, mysnake):
 						continue
 		
 		if (apple_ok == True):
-			coordinate.append([distance, x1, y1])       #store distancea and coordinates in list
+			coordinate.append([distance, x1, y1])       #store distances and coordinates in list
 
 	if (len(coordinate) == 0):
 		return sorted(desperation, key = lambda x:x[0])
-	else:
-		coordinate = sorted(coordinate, key=lambda x:x[0]) #sort all the coordinate base on distance
-
-	return coordinate
+	return sorted(coordinate, key=lambda x:x[0]) #sort all the coordinate base on distance
 
 def seek_apple_under_threshold(mysnake_head, apples, snake_list, mysnake):
 	x2 = mysnake.x[0]
@@ -300,18 +296,18 @@ def find_neighbours(cX, cY, parent, board):
 		if not is_obstacle(cX+dX, cY, board):
 			if not is_obstacle(cX, cY+dY, board):
 				neighbours.append((cX, cY+dY))
-			if check_right(cX, cY, 1, board):
+			if check_right(cX, cY, board):
 				neighbours.append((cX+1, cY+dY))
-			if check_left(cX, cY, 1, board):
+			if check_left(cX, cY, board):
 				neighbours.append((cX-1, cY+dY))
 
 	if (dX != 0 and dY == 0):
 		if not is_obstacle(cX+dX, cY, board):
 			if not is_obstacle(cX+dX, cY, board):
 				neighbours.append((cX+dX, cY))
-			if check_down(cX, cY, 1, board):
+			if check_down(cX, cY, board):
 				neighbours.append((cX+dX,cY+1))
-			if check_up(cX, cY, 1, board):
+			if check_up(cX, cY, board):
 				neighbours.append((cX+dX,cY-1))
 	return neighbours
 

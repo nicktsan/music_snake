@@ -5,6 +5,7 @@ import random
 import pygame
 import time
 import math
+import operator
 
 pygame.init()
 white = [255, 255, 255]
@@ -288,7 +289,49 @@ class App:
 				directions.remove('left')
 			if is_right:
 				directions.remove('right')
-			direction = random.choice(directions)
+			try:
+				direction = random.choice(directions)
+			except IndexError:
+				print "Goodbye cruel world!"
+				direction = 'up'
+			if (len(directions) > 1):
+				#make a dictionary for remaining viable directions.
+				#For example: if directions = ['up', 'down', 'right'] then moves will be
+				#							  {'up': 0, 'down': 0, 'right': 0}
+				moves = {}
+				for direction in directions:
+					moves[direction] = 0
+				"""
+				TODO assign points to corresponding choices
+				Let's say we want to give 'right' 3 points. Type:
+				moves['right'] += 3 
+				moves will then become 
+				{'up': 0, 'down': 0, 'right': 3}
+				"""
+				goal_points = seek_apple(self.apples, self.players, player)
+				for goal_point in goal_points:
+					path = jps((player.x[0], player.y[0]), (goal_point[1], goal_point[2]), self.board)
+					if path != None:
+						head, nextNode = path[0][0], path[0][1]
+						vect = calc_vec(head[0], head[1], nextNode[0], nextNode[1])
+						vX, vY = vect[0], vect[1]
+						priority = 200
+						score = (priority - player.hp)*0.01
+						if (vX < 0):
+							if ('left' in moves):
+								moves['left'] += score
+						if (vX > 0):
+							if ('right' in moves):
+								moves['right'] += score
+						if (vY < 0):
+							if ('up' in moves):
+								moves['up'] += score
+						if (vY > 0):
+							if ('down' in moves):
+								moves['down'] += score
+						break
+				direction = max(moves.iteritems(), key = operator.itemgetter(1))[0]
+
 			if direction == 'up':
 				player.moveUp()
 			if direction == 'down':
@@ -352,7 +395,7 @@ class App:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
 		for player in self.players:
-			if player.ai:
+			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
 	def on_render(self):
