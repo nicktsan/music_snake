@@ -10,21 +10,7 @@ import speech_recognition as sr
 r = sr.Recognizer()
 m = sr.Microphone()
 stop_listening = None
-"""
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser()
-	parser.add_argument("--ip", default="192.168.1.123",
-		help="The ip of the OSC server")
-	parser.add_argument("--port", type=int, default=5005,
-		help="The port the OSC server is listening on")
-
-	args = parser.parse_args()
-	client = udp_client.SimpleUDPClient(args.ip, args.port)
-	for x in range(10):
-		client.send_message("/filter", random.random())
-	time.sleep(1)
-
-"""
+client = 0
 def callback(recognizer, audio):
 	print("data received from thread")
 	try:
@@ -60,6 +46,34 @@ def stop_listening(unused_addr):
 	client.send_message("/stoppedlistening", "stopped microphone thread")
 	stop_listening(wait_for_stop = False)
 
+def send_dir(move, player_id):
+	global client
+	move = "Player: " + str(player_id) + " moves " + str(move)
+	client.send_message("/move", move)
+
+def init_osc():
+	ip = "192.168.1.123"
+	sendPort = 5005
+	inPort = 8000
+
+	#sending osc messages on
+	global client
+	client = udp_client.SimpleUDPClient(ip, sendPort)
+
+	#catches OSC messages
+	global dispatcher
+	dispatcher = dispatcher.Dispatcher()
+	dispatcher.map("/calibrate", calibrate_threshold)
+	dispatcher.map("/startListening", start_listening)
+	dispatcher.map("/stopListening", stop_listening)
+	
+	#set up server to listen for osc messages
+	
+	#server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
+	#print ("servering on {}".format(server.server_address))
+	#server.serve_forever()
+
+
 if __name__ == "__main__":
 	ip = "192.168.1.123"
 	sendPort = 5005
@@ -74,8 +88,6 @@ if __name__ == "__main__":
 	dispatcher.map("/startListening", start_listening)
 	dispatcher.map("/stopListening", stop_listening)
 	
-
-
 	#set up server to listen for osc messages
 	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
 	print ("servering on {}".format(server.server_address))
