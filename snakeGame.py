@@ -38,7 +38,7 @@ class Player:
 	hp = 100
 	x = 0
 	y = 0
-	direction = 2
+	direction = "up"
 	length = 3
 	ai = False
 	angle = 90
@@ -73,13 +73,13 @@ class Player:
 					self.y[i] = self.y[i-1]
 					
 				# update position of head of snake
-				if self.direction == 0:
+				if self.direction == "right":
 					self.x[0] = self.x[0] + 1
-				if self.direction == 1:
+				if self.direction == "left":
 					self.x[0] = self.x[0] - 1
-				if self.direction == 2:
+				if self.direction == "up":
 					self.y[0] = self.y[0] - 1
-				if self.direction == 3:
+				if self.direction == "down":
 					self.y[0] = self.y[0] + 1
  
 				self.updateCount = 0
@@ -99,19 +99,19 @@ class Player:
 		print("player", self.player_id, "died!")
 
 	def moveRight(self):
-		self.direction = 0
+		self.direction = "right"
 		self.angle = 0
  
 	def moveLeft(self):
-		self.direction = 1
+		self.direction = "left"
 		self.angle = 180
  
 	def moveUp(self):
-		self.direction = 2
+		self.direction = "up"
 		self.angle = 90
  
 	def moveDown(self):
-		self.direction = 3 
+		self.direction = "down"
 		self.angle = 270
  
 	def draw(self, surface, image, head):
@@ -171,6 +171,7 @@ class App:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
+					kill_server()
 					quit()
 
 				if event.type == pygame.KEYDOWN:
@@ -178,6 +179,7 @@ class App:
 						intro = False
 					if event.key == pygame.K_q:
 						pygame.quit()
+						kill_server()
 						quit()
 
 			self.message_to_screen("Musical Snakes!", black, "normal", self.windowWidth/2, self.windowHeight/2-115, self._display_surf)
