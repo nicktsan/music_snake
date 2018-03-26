@@ -9,11 +9,13 @@ def get_command():
 		print("Say something!")
 		audio = r.listen(source, phrase_time_limit = 1.0)
 	try:
-		print("Sphinx thinks you said: " + r.recognize_sphinx(audio))
+		data = r.recognize_sphinx(audio)
+		print("Sphinx thinks you said: " + data)
 	except sr.UnknownValueError:
 		print("Sphinx could not understand audio")
 	except sr.RequestError as e:
 		print("Sphinx error; {0}".format(e))	
+	return data
 if __name__ == "__main__" :
 	get_command()
 

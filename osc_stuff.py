@@ -2,12 +2,29 @@ from pythonosc import dispatcher
 from pythonosc import osc_server
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
+from speech_coms import *
 import argparse
+import random
+import time
 import speech_recognition as sr
 r = sr.Recognizer()
 m = sr.Microphone()
 stop_listening = None
+"""
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--ip", default="192.168.1.123",
+		help="The ip of the OSC server")
+	parser.add_argument("--port", type=int, default=5005,
+		help="The port the OSC server is listening on")
 
+	args = parser.parse_args()
+	client = udp_client.SimpleUDPClient(args.ip, args.port)
+	for x in range(10):
+		client.send_message("/filter", random.random())
+	time.sleep(1)
+
+"""
 def callback(recognizer, audio):
 	print("data received from thread")
 	try:
@@ -19,25 +36,25 @@ def callback(recognizer, audio):
 	except sr.RequestError as e:
 		print("Sphinx error; {0}".format(e))	
 
-def calibrate_threshold(unused_addr, args):
+def calibrate_threshold(unused_addr):
 	print ("Calibrate received")
 	client.send_message("/calibration", "calibration commenced")
 	try:
 		with m as source:
 			r.adjust_for_ambient_noise(source, duration = 1.0)
-			client.send_message("/calibration", "Minimum threshold set to {}", formate(r.energy_threshold))
+			client.send_message("/calibration", "Minimum threshold set to {}".format(r.energy_threshold))
 	except (KeyboardInterrupt):
 		print("Keyboard interrupt received")
 		pass
 
-def start_listening(unused_addr, args):
+def start_listening(unused_addr):
 	global stop_listening 
 	print("started listening")
 	client.send_message("/startedListening", "Listening thread started")
 	stop_listening = r.listen_in_background(m, callback, phrase_time_limit = 1.0)
 	return
 
-def stop_listening(unused_addr, args):
+def stop_listening(unused_addr):
 	global stop_listening
 	print("stopping")
 	client.send_message("/stoppedlistening", "stopped microphone thread")
@@ -45,7 +62,7 @@ def stop_listening(unused_addr, args):
 
 if __name__ == "__main__":
 	ip = "192.168.1.123"
-	sendPort = 7000
+	sendPort = 5005
 	inPort = 8000
 
 	#sending osc messages on
@@ -56,6 +73,8 @@ if __name__ == "__main__":
 	dispatcher.map("/calibrate", calibrate_threshold)
 	dispatcher.map("/startListening", start_listening)
 	dispatcher.map("/stopListening", stop_listening)
+	
+
 
 	#set up server to listen for osc messages
 	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
