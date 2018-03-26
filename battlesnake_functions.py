@@ -34,7 +34,7 @@ def is_obstacle(x, y, board):
 
 def init_board(apples, num_apples, snake_list, width, height):
 	#initialize a 2d list of 0's with width number of columns and height number of rows.
-	board = [([0] * width) for row in xrange(height)]
+	board = [([0] * width) for row in range(height)]
 	#fill in snake body locations with their id
 	for snake in snake_list: #snake contains all info within a snake's 'data'
 		for index in range(0, snake.length):
@@ -58,7 +58,7 @@ def init_board(apples, num_apples, snake_list, width, height):
 
 def update_board(players, apples, width, height):
 	#initialize a 2d list of 0's with width number of columns and height number of rows.
-	board = [([0] * width) for row in xrange(height)]
+	board = [([0] * width) for row in range(height)]
 	#fill in snake body locations with their id
 	for player in players: #snake contains all info within a snake's 'data'
 		if player.hp > 0:

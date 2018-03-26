@@ -1,4 +1,6 @@
 from battlesnake_functions import *
+from speech_coms import *
+from osc_stuff import *
 from pygame.locals import *
 from random import randint
 import random
@@ -6,6 +8,7 @@ import pygame
 import time
 import math
 import operator
+import speech_recognition as sr
 
 pygame.init()
 white = [255, 255, 255]
@@ -60,8 +63,8 @@ class Player:
 		self.y.append(y0+2)
  
 	def update(self, height, width):
- 		if self.hp > 0:
-			self.updateCount += 1
+		if self.hp > 0:
+			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
 				# update previous positions
 				for i in range(self.length-1,0,-1):
@@ -83,13 +86,16 @@ class Player:
 				if (self.x[0] >= width or self.y[0] >= height or self.x[0] < 0 or self.y[0] < 0 or self.hp <= 0):
 					self.kill()
  
- 	def kill(self):
- 		self.hp = 0
- 		self.x = 0
- 		self.y = 0
- 		self.length = 0
- 		self.alive = False
- 		print "Player %i died!" % self.player_id
+	def kill(self):
+		self.hp = 0
+		self.x = 0
+		self.y = 0
+		self.length = 0
+		self.alive = False
+		#for python 2.7
+		#print ("Player %i died!") % self.player_id
+		#for python 3.6.4
+		print("player", self.player_id, "died!")
 
 	def moveRight(self):
 		self.direction = 0
@@ -205,7 +211,7 @@ class App:
 								final_ai = int(num_ai)
 								settings = False
 							except ValueError:
-								print "Only accepts integers."
+								print ("Only accepts integers.")
 						elif event.key == pygame.K_BACKSPACE:
 							num_ai = num_ai[:-1]
 							self._display_surf.fill((255,255,255))
@@ -218,7 +224,7 @@ class App:
 								final_food = int(num_food)
 								setting_ai = True
 							except ValueError:
-								print "Only accepts integers."
+								print ("Only accepts integers.")
 						elif event.key == pygame.K_BACKSPACE:
 							num_food = num_food[:-1]
 							self._display_surf.fill((255,255,255))
@@ -231,7 +237,7 @@ class App:
 								final_players = int(num_players)
 								setting_food = True
 							except ValueError:
-								print "Only accepts integers."
+								print ("Only accepts integers.")
 						elif event.key == pygame.K_BACKSPACE:
 							num_players = num_players[:-1]
 							self._display_surf.fill((255,255,255))
@@ -292,7 +298,7 @@ class App:
 			try:
 				direction = random.choice(directions)
 			except IndexError:
-				print "Goodbye cruel world!"
+				print ("Goodbye cruel world!")
 				direction = 'up'
 			if (len(directions) > 1):
 				#make a dictionary for remaining viable directions.
@@ -330,7 +336,11 @@ class App:
 							if ('down' in moves):
 								moves['down'] += score
 						break
-				direction = max(moves.iteritems(), key = operator.itemgetter(1))[0]
+				#for python 2.7
+				#direction = max(moves.iteritems(), key = operator.itemgetter(1))[0]
+
+				#for python 3.6.4
+				direction = max(moves.items(), key = operator.itemgetter(1))[0]
 
 			if direction == 'up':
 				player.moveUp()
@@ -436,7 +446,7 @@ class App:
 				if keys[K_ESCAPE]:
 					all_alive = False
 				for player in self.players:
- 					if not player.ai:
+					if not player.ai:
 						if (keys[K_RIGHT]):
 							player.moveRight()
 						if (keys[K_LEFT]):
