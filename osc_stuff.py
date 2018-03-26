@@ -2,6 +2,7 @@ from pythonosc import dispatcher
 from pythonosc import osc_server
 from pythonosc import osc_message_builder
 from pythonosc import udp_client
+import threading
 from speech_coms import *
 import argparse
 import random
@@ -11,6 +12,7 @@ r = sr.Recognizer()
 m = sr.Microphone()
 stop_listening = None
 client = 0
+server = 0
 def callback(recognizer, audio):
 	print("data received from thread")
 	try:
@@ -68,13 +70,20 @@ def init_osc():
 	dispatcher.map("/stopListening", stop_listening)
 	
 	#set up server to listen for osc messages
-	
-	#server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
-	#print ("servering on {}".format(server.server_address))
+	global server
+	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
+	server_thread = threading.Thread(target=server.serve_forever)
+	print ("servering on {}".format(server.server_address))
+	server_thread.start()
 	#server.serve_forever()
+def kill_server():
+	global server
+	server.shutdown()
 
 
 if __name__ == "__main__":
+	init_osc()
+	"""
 	ip = "192.168.1.123"
 	sendPort = 5005
 	inPort = 8000
@@ -92,3 +101,4 @@ if __name__ == "__main__":
 	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
 	print ("servering on {}".format(server.server_address))
 	server.serve_forever()
+	"""
