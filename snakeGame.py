@@ -64,6 +64,7 @@ class Player:
  
 	def update(self, height, width):
 		if self.hp > 0:
+			send_dir(self.direction, self.player_id)
 			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
 				# update previous positions
@@ -432,6 +433,7 @@ class App:
 	def on_execute(self):
 		if self.on_init() == False:
 			self._running = False
+		init_osc()
 		while(self._running):
 			self.game_intro()
 			num_players, num_apples, num_ai = self.game_settings()
