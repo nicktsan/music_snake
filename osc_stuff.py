@@ -54,30 +54,33 @@ def send_dir(move, player_id):
 	client.send_message("/move", move)
 
 def init_osc():
-	ip = "192.168.1.123"
-	sendPort = 5005
-	inPort = 8000
+        #for uvic mac studio 2
+        ip = "192.168.1.102"
+        #for home
+        #ip = "192.168.1.123"
+        sendPort = 5005
+        inPort = 8000
 
-	#sending osc messages on
-	global client
-	client = udp_client.SimpleUDPClient(ip, sendPort)
+        #sending osc messages on
+        global client
+        client = udp_client.SimpleUDPClient(ip, sendPort)
 
-	#catches OSC messages
-	global dispatcher
-	dispatcher = dispatcher.Dispatcher()
-	dispatcher.map("/calibrate", calibrate_threshold)
-	dispatcher.map("/startListening", start_listening)
-	dispatcher.map("/stopListening", stop_listening)
+        #catches OSC messages
+        global dispatcher
+        dispatcher = dispatcher.Dispatcher()
+        dispatcher.map("/calibrate", calibrate_threshold)
+        dispatcher.map("/startListening", start_listening)
+        dispatcher.map("/stopListening", stop_listening)
 	
-	#set up server to listen for osc messages
-	global server
-	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
-	server_thread = threading.Thread(target=server.serve_forever)
-	print ("servering on {}".format(server.server_address))
-	server_thread.start()
+        #set up server to listen for osc messages
+        global server
+        server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
+        server_thread = threading.Thread(target=server.serve_forever)
+        print ("servering on {}".format(server.server_address))
+        server_thread.start()
 def kill_server():
-	global server
-	server.shutdown()
+        global server
+        server.shutdown()
 
 
 if __name__ == "__main__":
