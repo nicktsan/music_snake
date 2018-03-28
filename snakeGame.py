@@ -3,6 +3,8 @@ from speech_coms import *
 from osc_stuff import *
 from pygame.locals import *
 from random import randint
+from os import listdir
+from os.path import isfile, join
 import random
 import pygame
 import time
@@ -138,8 +140,8 @@ class App:
 	windowWidth = 1012
 	windowHeight = 770
 	board = 0
-	board_width = 35
-	board_height = 35
+	board_width = 20
+	board_height = 20
 
 	def __init__(self):
 		self._running = True
@@ -356,24 +358,28 @@ class App:
 
 	def on_init(self):
 		self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
- 
 		pygame.display.set_caption('Nicholas Tsang Python')
+		headpath = "sprites/heads/"
+		tailpath = "sprites/tails/"
+		headpics = [f for f in listdir(headpath) if isfile(join(headpath, f))]
+		tailpics = [f for f in listdir(tailpath) if isfile(join(tailpath, f))]
+		print (headpics)
+		print (tailpics)
 		self._running = True
 		self._image_surf = []
 		self._head_surf = []
 		self._apple_surf = pygame.image.load("sprites/apple_sprite_01.png").convert()
 
-		self._head_surf.append(pygame.image.load("sprites/snakehead_red.png").convert())
-		self._head_surf.append(pygame.image.load("sprites/snakehead_green.png").convert())
-		self._head_surf.append(pygame.image.load("sprites/snakehead_blue.png").convert())
-		self._head_surf.append(pygame.image.load("sprites/snakehead_black.png").convert())
+		for headpic in headpics:
+			headpath = "sprites/heads/"
+			headpath = headpath + headpic
+			self._head_surf.append(pygame.image.load(headpath).convert())
 
-		self._image_surf.append(pygame.image.load("sprites/snake_tail_red.png").convert())
-		self._image_surf.append(pygame.image.load("sprites/snake_tail_green.png").convert())
-		self._image_surf.append(pygame.image.load("sprites/snake_tail_blue.png").convert())
-		self._image_surf.append(pygame.image.load("sprites/snake_tail_black.png").convert())
-		
- 
+		for tailpic in tailpics:
+			tailpath = "sprites/tails/"
+			tailpath = tailpath + tailpic
+			self._image_surf.append(pygame.image.load(tailpath).convert())
+
 	def on_event(self, event):
 		if event.type == QUIT:
 			self._running = False
@@ -414,8 +420,8 @@ class App:
 	def on_render(self):
 		self._display_surf.fill((255,255,255))
 		for i in range(1, self.board_height+1):
-			pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.windowHeight])
-			pygame.draw.line(self._display_surf, black, [0, i*step], [(self.board_width)*step, i*step])
+			pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
+			pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
 		stats_midpoint = (self.windowWidth - (self.board_width)*step)/2 + (self.board_width)*step
 
 		for player in self.players:
