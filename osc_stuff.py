@@ -75,7 +75,6 @@ def init_osc():
 	server_thread = threading.Thread(target=server.serve_forever)
 	print ("servering on {}".format(server.server_address))
 	server_thread.start()
-	#server.serve_forever()
 def kill_server():
 	global server
 	server.shutdown()

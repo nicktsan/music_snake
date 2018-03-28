@@ -210,10 +210,12 @@ class App:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
+					kill_server()
 					quit()
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_ESCAPE:
 						pygame.quit()
+						kill_server()
 						quit()
 					if setting_ai == True and setting_food == True:
 						if event.key == pygame.K_RETURN:
@@ -428,8 +430,8 @@ class App:
 		for player in self.players:
 			if player.hp > 0:
 				player.draw(self._display_surf, self._image_surf[player.player_id-1], self._head_surf[player.player_id-1])
+			self._display_surf.blit(self._head_surf[player.player_id-1], (stats_midpoint-107, 25*player.player_id-9))
 			message = 'Player ' + str(player.player_id) + ' HP: ' + str(player.hp)
-			#message_to_screen(self, message, color, font_size, x_dispose, y_dispose, surface):
 			self.message_to_screen(message, black, "small", stats_midpoint, 25*player.player_id, self._display_surf)
 	
 		for apple in self.apples:
