@@ -140,8 +140,8 @@ class App:
 	windowWidth = 1012
 	windowHeight = 770
 	board = 0
-	board_width = 20
-	board_height = 20
+	board_width = 35
+	board_height = 35
 
 	def __init__(self):
 		self._running = True
@@ -150,6 +150,11 @@ class App:
 		self._image_surf = None
 		self._apple_surf = None
 		self.game = Game()
+
+	def reset_game(self):
+		self.players.clear()
+		self.apples.clear()
+		self.board = 0
 
 	def text_objects(self, text, color, font_size):
 		text_surface = None
@@ -264,21 +269,19 @@ class App:
 		return final_players, final_food, final_ai
  
 		#do a maximum of 4 players
-	def create_players(self, players, board_width, num_players, num_ai):
+	def create_players(self, players, num_players, num_ai):
 		total_snakes = num_players + num_ai
-		spawn_location = int(board_width/3)
+		players_per_row = math.ceil(math.sqrt(total_snakes))
+		x_distance = int(self.board_width/(players_per_row+1))
+		y_distance = int(self.board_height/(players_per_row+1))
 		for p in range(1, total_snakes+1):
+			x_spawn = p % players_per_row
+			if x_spawn == 0:
+				x_spawn = players_per_row
+			y_spawn = math.ceil(float(p/players_per_row))
 			new_snake = 0
-			x = 0
-			y = 0
-			if p > 4:
-				break
-			if p <= 2:
-				x = spawn_location*p
-				y = spawn_location
-			else:
-				x = spawn_location*(p-2)
-				y = spawn_location*2
+			x = x_spawn*x_distance
+			y = y_spawn*y_distance
 			new_snake = Player(p, 3, x, y)
 			if p > num_players:
 				new_snake.ai = True
@@ -363,8 +366,6 @@ class App:
 		tailpath = "sprites/tails/"
 		headpics = [f for f in listdir(headpath) if isfile(join(headpath, f))]
 		tailpics = [f for f in listdir(tailpath) if isfile(join(tailpath, f))]
-		print (headpics)
-		print (tailpics)
 		self._running = True
 		self._image_surf = []
 		self._head_surf = []
@@ -445,7 +446,7 @@ class App:
 		while(self._running):
 			self.game_intro()
 			num_players, num_apples, num_ai = self.game_settings()
-			self.players = self.create_players(self.players, self.board_width, num_players, num_ai)
+			self.players = self.create_players(self.players, num_players, num_ai)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			all_alive = True
 			while(all_alive):
@@ -471,6 +472,8 @@ class App:
 					alive_status.append(player.alive)
 				if not any(alive_status):
 					all_alive = False
+				if not all_alive:
+					self.reset_game()
 				time.sleep (50.0 / 1000.0);
 		self.on_cleanup()
  
