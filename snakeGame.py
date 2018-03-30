@@ -1,5 +1,5 @@
 from battlesnake_functions import *
-from speech_coms import *
+#from speech_coms import *
 from osc_stuff import *
 from pygame.locals import *
 from random import randint
@@ -449,6 +449,7 @@ class App:
 			self.game_intro()
 			num_players, num_apples, num_ai = self.game_settings()
 			self.players = self.create_players(self.players, num_players, num_ai)
+			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			all_alive = True
 			while(all_alive):
@@ -476,6 +477,7 @@ class App:
 					all_alive = False
 				if not all_alive:
 					self.reset_game()
+					reset_players()
 				time.sleep (50.0 / 1000.0);
 		self.on_cleanup()
  
