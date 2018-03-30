@@ -56,11 +56,6 @@ def stop_listening(unused_addr):
 	client.send_message("/stoppedlistening", "stopped microphone thread")
 	stop_listening(wait_for_stop = False)
 
-def send_dir(move, player_id):
-	global client
-	move = "Player: " + str(player_id) + " moves " + str(move)
-	client.send_message("/move", move)
-
 def player1up(unused_addr):
         try:
                 directions[0] = "up"
@@ -109,6 +104,12 @@ def player2right(unused_addr):
         except (IndexError):
                 pass
 
+
+def send_dir(move, player_id):
+        global client
+        move = str(player_id) + " " + str(move)
+        client.send_message("/move", move)
+
 def get_dir(player_id):
         return directions[player_id-1]
 
@@ -119,6 +120,12 @@ def create_dirs(num_players):
 def reset_players():
         directions.clear()
 
+def send_quadrant(x, y, board_width):
+        global client
+        tile_num = y * board_width + x
+        section_num = int(tile_num/board_width)
+        return 0
+
 def kill_server():
         global server
         global server_thread
@@ -127,9 +134,11 @@ def kill_server():
         print(threading.active_count())
 
 def init_osc():
-        #for uvic mac studio 2
-        ip = "192.168.1.102"
-        #for home
+        #for my laptop to uvic wifi
+        ip = "134.87.146.10"
+        #for uvic mac studio 2 computer
+        #ip = "192.168.1.102"
+        #for home laptop at home ethernet
         #ip = "192.168.1.123"
         sendPort = 5005
         inPort = 8000

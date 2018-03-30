@@ -67,7 +67,7 @@ class Player:
 	def update(self, height, width):
 		if self.hp > 0:
 			send_dir(self.direction, self.player_id)
-			if not self.ai:
+			if not self.ai and self.player_id != 1:
                                 self.direction = get_dir(self.player_id)
                                 if self.direction == "right":
                                         self.angle = 0
@@ -271,11 +271,11 @@ class App:
 				self.message_to_screen("Enter number of players.", black, "normal", self.windowWidth/2, self.windowHeight/2-115, self._display_surf)
 				self.message_to_screen(num_players, black, "normal", self.windowWidth/2, self.windowHeight/2-65, self._display_surf)
 				if setting_food == True:
-					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2+65, self._display_surf)
-					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
+					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2, self._display_surf)
+					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+50, self._display_surf)
 				if setting_ai == True and setting_food == True:
-					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
-					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+215, self._display_surf)
+					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
+					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
 
 			pygame.display.update()
 		return final_players, final_food, final_ai
@@ -356,6 +356,8 @@ class App:
 							if ('down' in moves):
 								moves['down'] += score
 						break
+					else:
+						path = jps((player.x[0], player.y[0]), (player.x[player.length-1], player.y[player.length-1]), self.board)
 				#for python 2.7
 				#direction = max(moves.iteritems(), key = operator.itemgetter(1))[0]
 
@@ -430,23 +432,46 @@ class App:
 			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
-	def on_render(self):
-		self._display_surf.fill((255,255,255))
-		for i in range(1, self.board_height+1):
-			pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
-			pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
-		stats_midpoint = (self.windowWidth - (self.board_width)*step)/2 + (self.board_width)*step
+	def on_render(self, countdown):
+		if countdown > 0:
+			while countdown > 0:
+				self._display_surf.fill((255,255,255))
+				for i in range(1, self.board_height+1):
+					pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
+					pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
+				stats_midpoint = (self.windowWidth - (self.board_width)*step)/2 + (self.board_width)*step
 
-		for player in self.players:
-			if player.hp > 0:
-				player.draw(self._display_surf, self._image_surf[player.player_id-1], self._head_surf[player.player_id-1])
-			self._display_surf.blit(self._head_surf[player.player_id-1], (stats_midpoint-107, 25*player.player_id-9))
-			message = 'Player ' + str(player.player_id) + ' HP: ' + str(player.hp)
-			self.message_to_screen(message, black, "small", stats_midpoint, 25*player.player_id, self._display_surf)
+				for player in self.players:
+					if player.hp > 0:
+						player.draw(self._display_surf, self._image_surf[player.player_id-1], self._head_surf[player.player_id-1])
+					self._display_surf.blit(self._head_surf[player.player_id-1], (stats_midpoint-107, 25*player.player_id-9))
+					message = 'Player ' + str(player.player_id) + ' HP: ' + str(player.hp)
+					self.message_to_screen(message, black, "small", stats_midpoint, 25*player.player_id, self._display_surf)
 	
-		for apple in self.apples:
-			apple.draw(self._display_surf, self._apple_surf)
-		pygame.display.flip()
+				for apple in self.apples:
+					apple.draw(self._display_surf, self._apple_surf)
+				
+				self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
+				countdown -= 1
+				pygame.display.flip()
+				time.sleep(1)
+		else:
+			self._display_surf.fill((255,255,255))
+			for i in range(1, self.board_height+1):
+				pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
+				pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
+			stats_midpoint = (self.windowWidth - (self.board_width)*step)/2 + (self.board_width)*step
+
+			for player in self.players:
+				if player.hp > 0:
+					player.draw(self._display_surf, self._image_surf[player.player_id-1], self._head_surf[player.player_id-1])
+				self._display_surf.blit(self._head_surf[player.player_id-1], (stats_midpoint-107, 25*player.player_id-9))
+				message = 'Player ' + str(player.player_id) + ' HP: ' + str(player.hp)
+				self.message_to_screen(message, black, "small", stats_midpoint, 25*player.player_id, self._display_surf)
+	
+			for apple in self.apples:
+				apple.draw(self._display_surf, self._apple_surf)
+			pygame.display.flip()
  
 	def on_cleanup(self):
 		pygame.quit()
@@ -462,6 +487,7 @@ class App:
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			all_alive = True
+			self.on_render(3)
 			while(all_alive):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
@@ -480,7 +506,7 @@ class App:
 						if (keys[K_DOWN]):
 							player.moveDown()
 				self.on_loop()
-				self.on_render()
+				self.on_render(0)
 				for player in self.players:
 					alive_status.append(player.alive)
 				if not any(alive_status):
