@@ -13,6 +13,7 @@ m = sr.Microphone()
 stop_listening = None
 client = 0
 server = 0
+server_thread = 0
 directions = []
 def callback(recognizer, audio):
 	print("data received from thread")
@@ -60,29 +61,53 @@ def send_dir(move, player_id):
 	move = "Player: " + str(player_id) + " moves " + str(move)
 	client.send_message("/move", move)
 
-def player1up():
-        directions[0] == "up"
+def player1up(unused_addr):
+        try:
+                directions[0] = "up"
+        except (IndexError):
+                pass
 
-def player1down():
-        directions[0] == "down"
+def player1down(unused_addr):
+        try:
+                directions[0] = "down"
+        except (IndexError):
+                pass
 
-def player1left():
-        directions[0] == "left"
+def player1left(unused_addr):
+        try:
+                directions[0] = "left"
+        except (IndexError):
+                pass
 
-def player1right():
-        directions[0] == "right"
+def player1right(unused_addr):
+        try:
+                directions[0] = "right"
+        except (IndexError):
+                pass
 
-def player2up():
-        directions[1] == "up"
+def player2up(unused_addr):
+        try:
+                directions[1] = "up"
+        except (IndexError):
+                pass
 
-def player2down():
-        directions[1] == "down"
+def player2down(unused_addr):
+        try:
+                directions[1] = "down"
+        except (IndexError):
+                pass
 
-def player2left():
-        directions[1] == "left"
+def player2left(unused_addr):
+        try:
+                directions[1] = "left"
+        except (IndexError):
+                pass
 
-def player2right():
-        directions[1] == "right"
+def player2right(unused_addr):
+        try:
+                directions[1] = "right"
+        except (IndexError):
+                pass
 
 def get_dir(player_id):
         return directions[player_id-1]
@@ -96,7 +121,10 @@ def reset_players():
 
 def kill_server():
         global server
+        global server_thread
         server.shutdown()
+        print("active threads: ")
+        print(threading.active_count())
 
 def init_osc():
         #for uvic mac studio 2
@@ -127,10 +155,13 @@ def init_osc():
 	
         #set up server to listen for osc messages
         global server
+        global server_thread
         server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
         server_thread = threading.Thread(target=server.serve_forever)
-        print ("servering on {}".format(server.server_address))
         server_thread.start()
+        print ("servering on {}".format(server.server_address))
+        print("active threads: ")
+        print(threading.active_count())
 
 if __name__ == "__main__":
 	init_osc()

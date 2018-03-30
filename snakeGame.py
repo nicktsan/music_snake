@@ -67,6 +67,16 @@ class Player:
 	def update(self, height, width):
 		if self.hp > 0:
 			send_dir(self.direction, self.player_id)
+			if not self.ai:
+                                self.direction = get_dir(self.player_id)
+                                if self.direction == "right":
+                                        self.angle = 0
+                                if self.direction == "left":
+                                        self.angle = 180
+                                if self.direction == "up":
+                                        self.angle = 90
+                                if self.direction == "down":
+                                        self.angle = 270
 			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
 				# update previous positions
