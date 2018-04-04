@@ -66,8 +66,9 @@ class Player:
  
 	def update(self, height, width):
 		if self.hp > 0:
-			send_dir(self.direction, self.player_id)
-			if not self.ai and self.player_id != 1:
+			#send_dir(self.direction, self.player_id)
+			send_quadrant(self.x[0], self.y[0], height, width)
+			if not self.ai:
                                 self.direction = get_dir(self.player_id)
                                 if self.direction == "right":
                                         self.angle = 0

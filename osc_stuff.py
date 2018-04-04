@@ -58,48 +58,56 @@ def stop_listening(unused_addr):
 
 def player1up(unused_addr):
         try:
+                #print("up1")
                 directions[0] = "up"
         except (IndexError):
                 pass
 
 def player1down(unused_addr):
         try:
+                #print("down1")
                 directions[0] = "down"
         except (IndexError):
                 pass
 
 def player1left(unused_addr):
         try:
+                #print("left1")
                 directions[0] = "left"
         except (IndexError):
                 pass
 
 def player1right(unused_addr):
         try:
+                #print("right1")
                 directions[0] = "right"
         except (IndexError):
                 pass
 
 def player2up(unused_addr):
         try:
+                #print("up2")
                 directions[1] = "up"
         except (IndexError):
                 pass
 
 def player2down(unused_addr):
         try:
+                #print("down2")
                 directions[1] = "down"
         except (IndexError):
                 pass
 
 def player2left(unused_addr):
         try:
+                #print("left2")
                 directions[1] = "left"
         except (IndexError):
                 pass
 
 def player2right(unused_addr):
         try:
+                #print("right2")
                 directions[1] = "right"
         except (IndexError):
                 pass
@@ -120,11 +128,20 @@ def create_dirs(num_players):
 def reset_players():
         directions.clear()
 
-def send_quadrant(x, y, board_width):
+def send_quadrant(x, y, board_height, board_width):
+        #0-7 8-15 16-23 24-31 32-34
         global client
         tile_num = y * board_width + x
-        section_num = int(tile_num/board_width)
-        return 0
+        height_division = int(board_height/4)
+        width_division = int(board_width/4)
+        x_section = int(x/width_division)
+        y_section = int(y/height_division)
+        if x_section > 3:
+                x_section = 3
+        if y_section > 3:
+                y_section = 3
+        section_num = int(x_section + 4*y_section)
+        client.send_message("/quadrant", section_num)
 
 def kill_server():
         global server
@@ -135,9 +152,9 @@ def kill_server():
 
 def init_osc():
         #for my laptop to uvic wifi
-        ip = "134.87.146.10"
+        #ip = "134.87.146.10"
         #for uvic mac studio 2 computer
-        #ip = "192.168.1.102"
+        ip = "192.168.1.102"
         #for home laptop at home ethernet
         #ip = "192.168.1.123"
         sendPort = 5005
