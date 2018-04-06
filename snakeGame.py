@@ -33,8 +33,7 @@ class Apple:
  
 	def draw(self, surface, image):
 		surface.blit(image,(self.x * step, self.y * step)) 
- 
- 
+
 class Player:
 	player_id = 0
 	hp = 100
@@ -66,18 +65,18 @@ class Player:
  
 	def update(self, height, width):
 		if self.hp > 0:
-			#send_dir(self.direction, self.player_id)
+			send_dir(self.direction, self.player_id)
 			send_quadrant(self.x[0], self.y[0], height, width)
 			if not self.ai:
-                                self.direction = get_dir(self.player_id)
-                                if self.direction == "right":
-                                        self.angle = 0
-                                if self.direction == "left":
-                                        self.angle = 180
-                                if self.direction == "up":
-                                        self.angle = 90
-                                if self.direction == "down":
-                                        self.angle = 270
+				self.direction = get_dir(self.player_id)
+				if self.direction == "right":
+					self.angle = 0
+				if self.direction == "left":
+					self.angle = 180
+				if self.direction == "up":
+					self.angle = 90
+				if self.direction == "down":
+					self.angle = 270
 			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
 				# update previous positions
@@ -99,7 +98,7 @@ class Player:
 				self.hp -= 1
 				if (self.x[0] >= width or self.y[0] >= height or self.x[0] < 0 or self.y[0] < 0 or self.hp <= 0):
 					self.kill()
- 
+					
 	def kill(self):
 		self.hp = 0
 		self.x = 0
@@ -110,6 +109,7 @@ class Player:
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
+		death_trigger(self.length)
 
 	def moveRight(self):
 		self.direction = "right"
@@ -143,7 +143,6 @@ class Game:
 		return False
 
 class App:
- 
 	players = []
 	#apples are marked on the board as non-zero integers. When referencing the apple list using board location,
 	#do i-1
@@ -426,6 +425,7 @@ class App:
 							player.y.append(player.y[player.length-1])
 							player.length += 1
 							player.hp = 100
+							eat_trigger(player.length)
 		for player in kill_list:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)

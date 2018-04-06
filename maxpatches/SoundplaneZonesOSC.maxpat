@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 888.0, 295.0, 1058.0, 499.0 ],
+		"rect" : [ 828.0, 295.0, 1058.0, 499.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -427,7 +427,45 @@
 						"tags" : "",
 						"style" : "",
 						"subpatcher_template" : "",
+						"visible" : 1,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-14",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 931.0, 712.0, 150.0, 20.0 ],
+									"style" : "",
+									"text" : "134.87.155.109"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-12",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 586.0, 744.0, 150.0, 20.0 ],
+									"style" : "",
+									"text" : "134.87.159.255 uvic wifi"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-10",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 569.0, 831.0, 150.0, 47.0 ],
+									"style" : "",
+									"text" : " 192.168.10.255 for mac in pty\n"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-19",
 									"maxclass" : "newobj",
@@ -484,9 +522,9 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 354.75, 879.0, 167.0, 22.0 ],
+									"patching_rect" : [ 354.75, 879.0, 173.0, 22.0 ],
 									"style" : "",
-									"text" : "udpsend 192.168.1.102 8000"
+									"text" : "udpsend 134.87.155.109 8000"
 								}
 
 							}
@@ -1512,7 +1550,7 @@
 							"modernui" : 1
 						}
 ,
-						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"rect" : [ 59.0, 104.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1548,7 +1586,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 5,
 									"outlettype" : [ "", "", "", "", "" ],
-									"patching_rect" : [ 50.0, 100.0, 236.0, 20.0 ],
+									"patching_rect" : [ 50.0, 100.0, 236.0, 22.0 ],
 									"style" : "",
 									"text" : "OSC-route /ctrl_y1 /ctrl_y2 /ctrl_y3 /ctrl_y4"
 								}
