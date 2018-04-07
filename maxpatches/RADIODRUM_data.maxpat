@@ -44,19 +44,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 419.0, 468.0, 150.0, 20.0 ],
 					"style" : "",
-					"text" : "134.87.159.255 uvic wifi"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 549.0, 326.0, 100.0, 22.0 ],
-					"style" : ""
+					"text" : "134.87.154.109 uvic wifi"
 				}
 
 			}
@@ -67,7 +55,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 400.0, 411.0, 154.0, 47.0 ],
+					"patching_rect" : [ 400.0, 411.0, 154.0, 33.0 ],
 					"style" : "",
 					"text" : "192.168.10.255 for mac in pty\n"
 				}
@@ -91,9 +79,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 187.5, 417.0, 173.0, 22.0 ],
+					"patching_rect" : [ 187.5, 417.0, 167.0, 22.0 ],
 					"style" : "",
-					"text" : "udpsend 134.87.155.109 8000"
+					"text" : "udpsend 192.168.1.102 8000"
 				}
 
 			}

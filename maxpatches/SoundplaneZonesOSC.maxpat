@@ -430,38 +430,13 @@
 						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"id" : "obj-14",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 931.0, 712.0, 150.0, 20.0 ],
-									"style" : "",
-									"text" : "134.87.155.109"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-12",
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 586.0, 744.0, 150.0, 20.0 ],
+									"patching_rect" : [ 563.0, 869.0, 150.0, 20.0 ],
 									"style" : "",
-									"text" : "134.87.159.255 uvic wifi"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-10",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 569.0, 831.0, 150.0, 47.0 ],
-									"style" : "",
-									"text" : " 192.168.10.255 for mac in pty\n"
+									"text" : "134.87.155.109 uvic wifi"
 								}
 
 							}
@@ -522,9 +497,9 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 354.75, 879.0, 173.0, 22.0 ],
+									"patching_rect" : [ 354.75, 879.0, 167.0, 22.0 ],
 									"style" : "",
-									"text" : "udpsend 134.87.155.109 8000"
+									"text" : "udpsend 192.168.1.102 8000"
 								}
 
 							}

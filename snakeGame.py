@@ -17,6 +17,7 @@ white = [255, 255, 255]
 black = [0, 0, 0]
 green = [0, 155, 0]
 red = [255, 0, 0]
+cyan = [204, 255, 255]
 
 small_font = pygame.font.SysFont("timesnewroman", 25)
 normal_font = pygame.font.SysFont("timesnewroman", 50)
@@ -150,8 +151,8 @@ class App:
 	windowWidth = 1012
 	windowHeight = 770
 	board = 0
-	board_width = 35
-	board_height = 35
+	board_width = 32
+	board_height = 32
 
 	def __init__(self):
 		self._running = True
@@ -434,9 +435,20 @@ class App:
 				self.calc_move(player)
  
 	def on_render(self, countdown):
+		height_division = int(self.board_height/4)
+		width_division = int(self.board_width/4)
 		if countdown > 0:
 			while countdown > 0:
 				self._display_surf.fill((255,255,255))
+				for y in range(0, 4):
+					for x in range(0, 4):
+						total = x + y
+						colour = white
+						if total % 2 == 0:
+							colour = cyan
+						pygame.draw.rect(self._display_surf, colour, [x*step*width_division, y*step*height_division, step*width_division, step*height_division])
+
+
 				for i in range(1, self.board_height+1):
 					pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
 					pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
@@ -458,6 +470,14 @@ class App:
 				time.sleep(1)
 		else:
 			self._display_surf.fill((255,255,255))
+			for y in range(0, 4):
+				for x in range(0, 4):
+					total = x + y
+					colour = white
+					if total % 2 == 0:
+						colour = cyan
+					pygame.draw.rect(self._display_surf, colour, [x*step*width_division, y*step*height_division, step*width_division, step*height_division])
+
 			for i in range(1, self.board_height+1):
 				pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
 				pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
