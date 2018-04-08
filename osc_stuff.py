@@ -161,9 +161,9 @@ def init_osc():
 	#for mac in pty
 	#ip = "192.168.10.255"
 	#for uvic mac studio 2 computer
-	ip = "192.168.1.102"
+	#ip = "192.168.1.102"
 	#for home laptop at home ethernet
-	#ip = "192.168.1.123"
+	ip = "192.168.1.123"
 	#for uvic wifi
 	#ip = "134.87.155.109"
 	sendPort = 5005

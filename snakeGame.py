@@ -2,6 +2,7 @@ from battlesnake_functions import *
 #from speech_coms import *
 from osc_stuff import *
 from pygame.locals import *
+from pygame import mixer
 from random import randint
 from os import listdir
 from os.path import isfile, join
@@ -10,9 +11,11 @@ import pygame
 import time
 import math
 import operator
+import os
 import speech_recognition as sr
 
 pygame.init()
+mixer.init()
 white = [255, 255, 255]
 black = [0, 0, 0]
 green = [0, 155, 0]
@@ -399,7 +402,22 @@ class App:
 	def on_event(self, event):
 		if event.type == QUIT:
 			self._running = False
- 
+
+	def announce_start(self):
+		folder=os.listdir("announcer/")
+		file = random.choice(folder)
+		folder2=os.listdir("announcer/begin/")
+		file2 = random.choice(folder2)
+		ext3 = ['.mp3']
+		while file[-4:] not in ext3:
+			file = random.choice(folder)
+		while file2[-4:] not in ext3:
+			file2 = random.choice(folder2)
+		mixer.music.load("announcer/" + file)
+		mixer.music.play()
+		#mixer.music.queue("announcer/begin/" + file2)
+		
+
 	def on_loop(self):
 		for player in self.players:
 			if player.hp > 0:
@@ -483,6 +501,7 @@ class App:
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			all_alive = True
+			self.announce_start()
 			self.on_render(3)
 			while(all_alive):
 				pygame.event.pump()
