@@ -122,7 +122,8 @@ def eat_trigger(length):
 def send_dir(move, player_id):
 	global client
 	#move = str(player_id) + " " + str(move)
-	client.send_message("/move", move)
+	msg = str(player_id) + " " + move
+	client.send_message("/move", msg)
 
 def get_dir(player_id):
 	return directions[player_id-1]
@@ -130,6 +131,10 @@ def get_dir(player_id):
 def create_dirs(num_players):
 	for i in range(0, num_players):
 		directions.append("up")
+
+def announce_start():
+	global client
+	client.send_message("/announcer", random.randint(1, 3))
 				
 def reset_players():
 	directions.clear()
@@ -158,12 +163,10 @@ def kill_server():
 def init_osc():
 	#for my laptop to uvic wifi
 	#ip = "134.87.146.10"
-	#for mac in pty
-	#ip = "192.168.10.255"
 	#for uvic mac studio 2 computer
-	#ip = "192.168.1.102"
+	ip = "192.168.1.102"
 	#for home laptop at home ethernet
-	ip = "192.168.1.123"
+	#ip = "192.168.1.123"
 	#for uvic wifi
 	#ip = "134.87.155.109"
 	sendPort = 5005
