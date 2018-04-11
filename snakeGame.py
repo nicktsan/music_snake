@@ -69,8 +69,7 @@ class Player:
  
 	def update(self, height, width):
 		if self.hp > 0:
-			send_dir(self.direction, self.player_id)
-			send_quadrant(self.x[0], self.y[0], height, width)
+			
 			if not self.ai:
 				self.direction = get_dir(self.player_id)
 				if self.direction == "right":
@@ -83,6 +82,8 @@ class Player:
 					self.angle = 270
 			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
+				send_dir(self.direction, self.player_id)
+				send_quadrant(self.x[0], self.y[0], height, width)
 				# update previous positions
 				for i in range(self.length-1,0,-1):
 					self.x[i] = self.x[i-1]
@@ -113,7 +114,7 @@ class Player:
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
-		death_trigger(self.length)
+		death_trigger(self.length, self.player_id)
 
 	def moveRight(self):
 		self.direction = "right"
@@ -154,8 +155,8 @@ class App:
 	windowWidth = 1012
 	windowHeight = 770
 	board = 0
-	board_width = 32
-	board_height = 32
+	board_width = 28
+	board_height = 28
 
 	def __init__(self):
 		self._running = True
@@ -198,7 +199,7 @@ class App:
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_c:
 						intro = False
-					if event.key == pygame.K_q:
+					if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
 						pygame.quit()
 						kill_server()
 						quit()
@@ -496,6 +497,7 @@ class App:
 				alive_status = []
 				if keys[K_ESCAPE]:
 					all_alive = False
+
 				for player in self.players:
 					if not player.ai:
 						if (keys[K_RIGHT]):
@@ -512,6 +514,7 @@ class App:
 					alive_status.append(player.alive)
 				if not any(alive_status):
 					all_alive = False
+				all_alive = check_game_status()
 				if not all_alive:
 					self.reset_game()
 					reset_players()

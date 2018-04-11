@@ -15,6 +15,7 @@ client = 0
 server = 0
 server_thread = 0
 directions = []
+game_status = True
 def callback(recognizer, audio):
 	print("data received from thread")
 	try:
@@ -111,9 +112,11 @@ def player2right(unused_addr):
 		directions[1] = "right"
 	except (IndexError):
 		pass
-def death_trigger(length):
+def death_trigger(length, player_id):
 	global client
+	msg = "/move/" + str(player_id)
 	client.send_message("/death", length)
+	client.send_message(msg, "dead")
 
 def eat_trigger(length):
 	global client
@@ -121,9 +124,8 @@ def eat_trigger(length):
 
 def send_dir(move, player_id):
 	global client
-	#move = str(player_id) + " " + str(move)
-	msg = str(player_id) + " " + move
-	client.send_message("/move", msg)
+	msg = "/move/" + str(player_id)
+	client.send_message(msg, move)
 
 def get_dir(player_id):
 	return directions[player_id-1]
@@ -137,6 +139,13 @@ def announce_start():
 	client.send_message("/announcer", random.randint(1, 3))
 				
 def reset_players():
+	global client
+	global game_status
+	game_status = True
+	print('resetting players')
+	for i in range(1, 5):
+		msg = "/move/" + str(i)
+		client.send_message(msg, "dead")
 	directions.clear()
 
 def send_quadrant(x, y, board_height, board_width):
@@ -159,6 +168,13 @@ def kill_server():
 	server.shutdown()
 	print("active threads: ")
 	print(threading.active_count())
+
+def check_game_status():
+	return game_status
+
+def exitgame(unused_addr):
+	global game_status
+	game_status = False
 
 def init_osc():
 	#for my laptop to uvic wifi
@@ -190,6 +206,7 @@ def init_osc():
 	dispatcher.map("/down2", player2down)
 	dispatcher.map("/left2", player2left)
 	dispatcher.map("/right2", player2right)
+	dispatcher.map("/exit", exitgame)
 	
 	#set up server to listen for osc messages
 	global server
