@@ -48,6 +48,7 @@ class Player:
 	ai = False
 	angle = 90
 	alive = True
+	respawn = 0
  
 	updateCountMax = 2
 	updateCount = 0
@@ -115,6 +116,44 @@ class Player:
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
 		death_trigger(self.length, self.player_id)
+
+	def respawn(self, board, board_width, board_height):
+		x_respawn = random.randint(5, board_width - 6)
+		y_respawn = random.randint(5, board_height - 6)
+		valid_spawn = False
+		"""
+
+
+		TO BE COMPLETED
+
+
+		"""
+		while not valid_spawn:
+			valid_spawn = True
+			while is_obstacle(x_respawn, y_respawn, board):
+				x_respawn = random.randint(5, board_width - 6)
+				y_respawn = random.randint(5, board_height - 6)
+
+			for i in range(0, 3):
+				#for radius = 0
+				if is_obstacle(x_respawn, y_respawn+i, board):
+					valid_spawn = False	
+
+				#for radius = 1
+				for x_displacement in range(-1, 2):
+					#calculate absolute value of y
+					y_displacement = 1 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+						valid_spawn = False
+
+				#for radius = 2
+				for x_displacement in range(-2, 3):
+					#calculate absolute value of y
+					y_displacement = 2 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+						valid_spawn = False
 
 	def moveRight(self):
 		self.direction = "right"
