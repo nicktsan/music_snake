@@ -48,6 +48,7 @@ class Player:
 	ai = False
 	angle = 90
 	alive = True
+	respawn = 0
  
 	updateCountMax = 2
 	updateCount = 0
@@ -115,6 +116,44 @@ class Player:
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
 		death_trigger(self.length, self.player_id)
+
+	def respawn(self, board, board_width, board_height):
+		x_respawn = random.randint(5, board_width - 6)
+		y_respawn = random.randint(5, board_height - 6)
+		valid_spawn = False
+		"""
+
+
+		TO BE COMPLETED
+
+
+		"""
+		while not valid_spawn:
+			valid_spawn = True
+			while is_obstacle(x_respawn, y_respawn, board):
+				x_respawn = random.randint(5, board_width - 6)
+				y_respawn = random.randint(5, board_height - 6)
+
+			for i in range(0, 3):
+				#for radius = 0
+				if is_obstacle(x_respawn, y_respawn+i, board):
+					valid_spawn = False	
+
+				#for radius = 1
+				for x_displacement in range(-1, 2):
+					#calculate absolute value of y
+					y_displacement = 1 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+						valid_spawn = False
+
+				#for radius = 2
+				for x_displacement in range(-2, 3):
+					#calculate absolute value of y
+					y_displacement = 2 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+						valid_spawn = False
 
 	def moveRight(self):
 		self.direction = "right"
@@ -199,7 +238,7 @@ class App:
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_c:
 						intro = False
-					if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+					if event.key == pygame.K_q:
 						pygame.quit()
 						kill_server()
 						quit()
@@ -487,38 +526,27 @@ class App:
 			self.players = self.create_players(self.players, num_players, num_ai)
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
-			all_alive = True
 			announce_start()
 			self.on_render(3)
-			while(all_alive):
+			while(1):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
 				alive_status = 0
 				alive_status = []
 				if keys[K_ESCAPE]:
-					all_alive = False
-
-				for player in self.players:
-					if not player.ai:
-						if (keys[K_RIGHT]):
-							player.moveRight()
-						if (keys[K_LEFT]):
-							player.moveLeft()
-						if (keys[K_UP]):
-							player.moveUp()
-						if (keys[K_DOWN]):
-							player.moveDown()
+					break
 				self.on_loop()
 				self.on_render(0)
 				for player in self.players:
 					alive_status.append(player.alive)
 				if not any(alive_status):
-					all_alive = False
-				all_alive = check_game_status()
-				if not all_alive:
-					self.reset_game()
-					reset_players()
+					break
+				if check_game_status() == False:
+					break
 				time.sleep (50.0 / 1000.0);
+			self.reset_game()
+			reset_players()
+				
 		self.on_cleanup()
  
 if __name__ == "__main__" :
