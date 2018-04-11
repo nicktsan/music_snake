@@ -2,6 +2,7 @@ from battlesnake_functions import *
 #from speech_coms import *
 from osc_stuff import *
 from pygame.locals import *
+from pygame import mixer
 from random import randint
 from os import listdir
 from os.path import isfile, join
@@ -10,13 +11,16 @@ import pygame
 import time
 import math
 import operator
+import os
 import speech_recognition as sr
 
 pygame.init()
+mixer.init()
 white = [255, 255, 255]
 black = [0, 0, 0]
 green = [0, 155, 0]
 red = [255, 0, 0]
+cyan = [204, 255, 255]
 
 small_font = pygame.font.SysFont("timesnewroman", 25)
 normal_font = pygame.font.SysFont("timesnewroman", 50)
@@ -33,8 +37,7 @@ class Apple:
  
 	def draw(self, surface, image):
 		surface.blit(image,(self.x * step, self.y * step)) 
- 
- 
+
 class Player:
 	player_id = 0
 	hp = 100
@@ -66,19 +69,21 @@ class Player:
  
 	def update(self, height, width):
 		if self.hp > 0:
-			send_dir(self.direction, self.player_id)
+			
 			if not self.ai:
-                                self.direction = get_dir(self.player_id)
-                                if self.direction == "right":
-                                        self.angle = 0
-                                if self.direction == "left":
-                                        self.angle = 180
-                                if self.direction == "up":
-                                        self.angle = 90
-                                if self.direction == "down":
-                                        self.angle = 270
+				self.direction = get_dir(self.player_id)
+				if self.direction == "right":
+					self.angle = 0
+				if self.direction == "left":
+					self.angle = 180
+				if self.direction == "up":
+					self.angle = 90
+				if self.direction == "down":
+					self.angle = 270
 			self.updateCount = self.updateCount+1
 			if self.updateCount > self.updateCountMax:
+				send_dir(self.direction, self.player_id)
+				send_quadrant(self.x[0], self.y[0], height, width)
 				# update previous positions
 				for i in range(self.length-1,0,-1):
 					self.x[i] = self.x[i-1]
@@ -98,7 +103,7 @@ class Player:
 				self.hp -= 1
 				if (self.x[0] >= width or self.y[0] >= height or self.x[0] < 0 or self.y[0] < 0 or self.hp <= 0):
 					self.kill()
- 
+					
 	def kill(self):
 		self.hp = 0
 		self.x = 0
@@ -109,6 +114,7 @@ class Player:
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
+		death_trigger(self.length, self.player_id)
 
 	def moveRight(self):
 		self.direction = "right"
@@ -142,7 +148,6 @@ class Game:
 		return False
 
 class App:
- 
 	players = []
 	#apples are marked on the board as non-zero integers. When referencing the apple list using board location,
 	#do i-1
@@ -150,8 +155,8 @@ class App:
 	windowWidth = 1012
 	windowHeight = 770
 	board = 0
-	board_width = 35
-	board_height = 35
+	board_width = 28
+	board_height = 28
 
 	def __init__(self):
 		self._running = True
@@ -194,7 +199,7 @@ class App:
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_c:
 						intro = False
-					if event.key == pygame.K_q:
+					if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
 						pygame.quit()
 						kill_server()
 						quit()
@@ -271,11 +276,11 @@ class App:
 				self.message_to_screen("Enter number of players.", black, "normal", self.windowWidth/2, self.windowHeight/2-115, self._display_surf)
 				self.message_to_screen(num_players, black, "normal", self.windowWidth/2, self.windowHeight/2-65, self._display_surf)
 				if setting_food == True:
-					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2+65, self._display_surf)
-					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
+					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2, self._display_surf)
+					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+50, self._display_surf)
 				if setting_ai == True and setting_food == True:
-					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
-					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+215, self._display_surf)
+					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
+					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
 
 			pygame.display.update()
 		return final_players, final_food, final_ai
@@ -356,6 +361,8 @@ class App:
 							if ('down' in moves):
 								moves['down'] += score
 						break
+					else:
+						path = jps((player.x[0], player.y[0]), (player.x[player.length-1], player.y[player.length-1]), self.board)
 				#for python 2.7
 				#direction = max(moves.iteritems(), key = operator.itemgetter(1))[0]
 
@@ -396,7 +403,8 @@ class App:
 	def on_event(self, event):
 		if event.type == QUIT:
 			self._running = False
- 
+		
+
 	def on_loop(self):
 		for player in self.players:
 			if player.hp > 0:
@@ -423,6 +431,7 @@ class App:
 							player.y.append(player.y[player.length-1])
 							player.length += 1
 							player.hp = 100
+							eat_trigger(player.length)
 		for player in kill_list:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
@@ -430,8 +439,19 @@ class App:
 			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
-	def on_render(self):
+	def on_render(self, countdown):
+		height_division = int(self.board_height/4)
+		width_division = int(self.board_width/4)
 		self._display_surf.fill((255,255,255))
+		for y in range(0, 4):
+			for x in range(0, 4):
+				total = x + y
+				colour = white
+				if total % 2 == 0:
+					colour = cyan
+				pygame.draw.rect(self._display_surf, colour, [x*step*width_division, y*step*height_division, step*width_division, step*height_division])
+
+
 		for i in range(1, self.board_height+1):
 			pygame.draw.line(self._display_surf, black, [i*step, 0], [i*step, self.board_height*step])
 			pygame.draw.line(self._display_surf, black, [0, i*step], [self.board_width*step, i*step])
@@ -446,6 +466,12 @@ class App:
 	
 		for apple in self.apples:
 			apple.draw(self._display_surf, self._apple_surf)
+		
+		if countdown > 0:
+			self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
+			pygame.display.flip()
+			time.sleep(1)
+			self.on_render(countdown - 1)
 		pygame.display.flip()
  
 	def on_cleanup(self):
@@ -462,6 +488,8 @@ class App:
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			all_alive = True
+			announce_start()
+			self.on_render(3)
 			while(all_alive):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
@@ -469,6 +497,7 @@ class App:
 				alive_status = []
 				if keys[K_ESCAPE]:
 					all_alive = False
+
 				for player in self.players:
 					if not player.ai:
 						if (keys[K_RIGHT]):
@@ -480,11 +509,12 @@ class App:
 						if (keys[K_DOWN]):
 							player.moveDown()
 				self.on_loop()
-				self.on_render()
+				self.on_render(0)
 				for player in self.players:
 					alive_status.append(player.alive)
 				if not any(alive_status):
 					all_alive = False
+				all_alive = check_game_status()
 				if not all_alive:
 					self.reset_game()
 					reset_players()

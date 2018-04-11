@@ -31561,7 +31561,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 69.6427, 636.0, 183.535767, 22.0 ],
 									"style" : "",
-									"text" : "0.66422 0.04434 0.006841"
+									"text" : "0.518396 0.536186 0.329629"
 								}
 
 							}
@@ -33405,7 +33405,7 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 192.428467, 253.0, 170.0, 22.0 ],
 									"style" : "",
-									"text" : "1.478745 1.47883 1.478742"
+									"text" : "0.806125 0.806531 0.805622"
 								}
 
 							}
@@ -37446,7 +37446,7 @@
 , 											{
 												"box" : 												{
 													"border" : 0,
-													"cellmap" : [ [ 0, 0, 0.000486 ], [ 1, 0, 0.459977 ] ],
+													"cellmap" : [ [ 0, 0, 0.010764 ], [ 1, 0, 0.790892 ] ],
 													"cols" : 2,
 													"fontface" : 0,
 													"fontname" : "Arial",
@@ -38447,7 +38447,7 @@
 , 											{
 												"box" : 												{
 													"border" : 0,
-													"cellmap" : [ [ 0, 0, 0.377016 ], [ 1, 0, 0.602578 ] ],
+													"cellmap" : [ [ 0, 0, 0.367315 ], [ 1, 0, 0.592544 ] ],
 													"cols" : 2,
 													"fontface" : 0,
 													"fontname" : "Arial",
@@ -39448,7 +39448,7 @@
 , 											{
 												"box" : 												{
 													"border" : 0,
-													"cellmap" : [ [ 0, 0, 0.28365 ], [ 1, 0, 0.752361 ] ],
+													"cellmap" : [ [ 0, 0, 0.291202 ], [ 1, 0, 0.749762 ] ],
 													"cols" : 2,
 													"fontface" : 0,
 													"fontname" : "Arial",
@@ -41280,22 +41280,22 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "my_event2.maxpat",
-				"bootpath" : "/Volumes/Class_Files/MUS_407_507/REFERENCE MATERIALS/SDRradiodrum/auxillary_patches",
-				"patcherrelativepath" : "./auxillary_patches",
+				"bootpath" : "/Volumes/Project Space/MAX externals/auxillary_patches",
+				"patcherrelativepath" : "../../../../../../MAX externals/auxillary_patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "spurious_whack_remover.maxpat",
-				"bootpath" : "/Volumes/Class_Files/MUS_407_507/REFERENCE MATERIALS/SDRradiodrum/auxillary_patches",
-				"patcherrelativepath" : "./auxillary_patches",
+				"bootpath" : "/Volumes/Project Space/MAX externals/auxillary_patches",
+				"patcherrelativepath" : "../../../../../../MAX externals/auxillary_patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "calibrate_hi_low.maxpat",
-				"bootpath" : "/Volumes/Class_Files/MUS_407_507/REFERENCE MATERIALS/SDRradiodrum/auxillary_patches",
-				"patcherrelativepath" : "./auxillary_patches",
+				"bootpath" : "/Volumes/Project Space/MAX externals/auxillary_patches",
+				"patcherrelativepath" : "../../../../../../MAX externals/auxillary_patches",
 				"type" : "JSON",
 				"implicit" : 1
 			}
