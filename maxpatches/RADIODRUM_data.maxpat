@@ -38,11 +38,24 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-15",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 660.5, 316.0, 33.0, 22.0 ],
+					"style" : "",
+					"text" : "/exit"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-9",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 419.0, 468.0, 150.0, 20.0 ],
+					"patching_rect" : [ 664.0, 483.0, 150.0, 20.0 ],
 					"style" : "",
 					"text" : "134.87.154.109 uvic wifi"
 				}
@@ -55,7 +68,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 400.0, 411.0, 154.0, 33.0 ],
+					"patching_rect" : [ 645.0, 426.0, 154.0, 33.0 ],
 					"style" : "",
 					"text" : "192.168.10.255 for mac in pty\n"
 				}
@@ -67,7 +80,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 187.5, 457.5, 150.0, 20.0 ],
+					"patching_rect" : [ 432.5, 472.5, 150.0, 20.0 ],
 					"style" : "",
 					"text" : "studio2 ip 192.168.1.102"
 				}
@@ -79,7 +92,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 187.5, 417.0, 167.0, 22.0 ],
+					"patching_rect" : [ 432.5, 432.0, 167.0, 22.0 ],
 					"style" : "",
 					"text" : "udpsend 192.168.1.102 8000"
 				}
@@ -441,7 +454,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 896.0, 90.0, 61.0, 22.0 ],
+					"patching_rect" : [ 896.0, 80.0, 61.0, 22.0 ],
 					"style" : "",
 					"text" : "r whackR"
 				}
@@ -628,6 +641,14 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"order" : 2,
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-67", 0 ],
 					"order" : 1,
 					"source" : [ "obj-12", 0 ]
@@ -639,6 +660,13 @@
 					"destination" : [ "obj-69", 0 ],
 					"order" : 0,
 					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-15", 0 ]
 				}
 
 			}

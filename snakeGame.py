@@ -199,7 +199,7 @@ class App:
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_c:
 						intro = False
-					if event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+					if event.key == pygame.K_q:
 						pygame.quit()
 						kill_server()
 						quit()
@@ -487,38 +487,27 @@ class App:
 			self.players = self.create_players(self.players, num_players, num_ai)
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
-			all_alive = True
 			announce_start()
 			self.on_render(3)
-			while(all_alive):
+			while(1):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
 				alive_status = 0
 				alive_status = []
 				if keys[K_ESCAPE]:
-					all_alive = False
-
-				for player in self.players:
-					if not player.ai:
-						if (keys[K_RIGHT]):
-							player.moveRight()
-						if (keys[K_LEFT]):
-							player.moveLeft()
-						if (keys[K_UP]):
-							player.moveUp()
-						if (keys[K_DOWN]):
-							player.moveDown()
+					break
 				self.on_loop()
 				self.on_render(0)
 				for player in self.players:
 					alive_status.append(player.alive)
 				if not any(alive_status):
-					all_alive = False
-				all_alive = check_game_status()
-				if not all_alive:
-					self.reset_game()
-					reset_players()
+					break
+				if check_game_status() == False:
+					break
 				time.sleep (50.0 / 1000.0);
+			self.reset_game()
+			reset_players()
+				
 		self.on_cleanup()
  
 if __name__ == "__main__" :
