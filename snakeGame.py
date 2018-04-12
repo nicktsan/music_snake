@@ -48,7 +48,7 @@ class Player:
 	ai = False
 	angle = 90
 	alive = True
-	respawn_timer = 0
+	respawn_timer = 0.0
  
 	updateCountMax = 2
 	updateCount = 0
@@ -108,7 +108,7 @@ class Player:
 		self.length = 0
 		self.alive = False
 		self.direction = "up"
-		self.respawn_timer = 5
+		self.respawn_timer = 5000.0
 		#for python 2.7
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
@@ -128,8 +128,9 @@ class Player:
 				y_respawn = random.randint(5, board_height - 6)
 
 			for i in range(0, length):
+				print("tile check: " + str(x_respawn) + ", " + str(y_respawn+i))
 				#for radius = 0
-				if is_obstacle(x_respawn, y_respawn+i, board):
+				if is_obstacle(x_respawn, y_respawn+i, board) and not is_apple(x_respawn, y_respawn+i, board):
 					valid_spawn = False
 					break
 
@@ -150,6 +151,10 @@ class Player:
 					if is_obstacle(x_respawn+dX, y_respawn+i+dY, board) or is_obstacle(x_respawn+dX, y_respawn+i+neg_dY, board):
 						valid_spawn = False
 						break
+				if not valid_spawn:
+					x_respawn = random.randint(5, board_width - 6)
+					y_respawn = random.randint(5, board_height - 6)
+					break
 
 			self.hp = 100
 			self.x = []
@@ -158,7 +163,7 @@ class Player:
 			self.length = 3
 			self.angle = 90
 			self.alive = True
-			self.respawn_timer = 0
+			self.respawn_timer = 0.0
 			self.updateCountMax = 2
 			self.updateCount = 0
 			for i in range(0, length):
@@ -485,6 +490,12 @@ class App:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
 		for player in self.players:
+			if player.hp <= 0:
+				if player.respawn_timer == 0:
+					player.respawn(self.board, self.board_width, self.board_height, 3)
+					self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
+				else:
+					player.respawn_timer -= 50
 			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
@@ -541,16 +552,10 @@ class App:
 			while(1):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
-				alive_status = 0
-				alive_status = []
 				if keys[K_ESCAPE]:
 					break
 				self.on_loop()
 				self.on_render(0)
-				for player in self.players:
-					alive_status.append(player.alive)
-				if not any(alive_status):
-					break
 				if check_game_status() == False:
 					break
 				time.sleep (50.0 / 1000.0);
