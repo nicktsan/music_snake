@@ -211,6 +211,7 @@ class App:
 	board = 0
 	board_width = 28
 	board_height = 28
+	time = 0
 
 	def __init__(self):
 		self._running = True
@@ -221,6 +222,7 @@ class App:
 		self.game = Game()
 
 	def reset_game(self):
+		self.time = 0
 		self.players.clear()
 		self.apples.clear()
 		self.board = 0
@@ -272,9 +274,12 @@ class App:
 		num_food = ""
 		setting_ai = False
 		num_ai = ""
+		setting_time = False
+		time_num = ""
 		final_players = 0
 		final_food = 0
 		final_ai = 0
+		final_time = 0
 		while settings: 
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -282,20 +287,38 @@ class App:
 					kill_server()
 					quit()
 				if event.type == pygame.KEYDOWN:
+
 					if event.key == pygame.K_ESCAPE:
-						if setting_ai and setting_food:
+						if setting_ai and setting_food and setting_time:
+							setting_time = False
+						elif setting_ai and setting_food and not setting_time:
 							setting_ai = False
-						elif not setting_ai and setting_food:
+						elif not setting_ai and setting_food and not setting_time:
 							setting_food = False
 						else:
 							pygame.quit()
 							kill_server()
 							quit()
-					if setting_ai == True and setting_food == True:
+
+					if setting_ai and setting_food and setting_time:
+						if event.key == pygame.K_RETURN:
+							try:
+								final_time = int(time_num)
+								settings = False
+							except ValueError:
+								print ("Only accepts integers.")
+						elif event.key == pygame.K_BACKSPACE:
+							time_num = time_num[:-1]
+							self._display_surf.fill((255,255,255))
+						else:
+							time_num += chr(event.key)
+							self._display_surf.fill((255,255,255))
+
+					if setting_ai and setting_food and not setting_time:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_ai = int(num_ai)
-								settings = False
+								setting_time = True
 							except ValueError:
 								print ("Only accepts integers.")
 						elif event.key == pygame.K_BACKSPACE:
@@ -304,7 +327,7 @@ class App:
 						else:
 							num_ai += chr(event.key)
 							self._display_surf.fill((255,255,255))
-					if setting_food == True and setting_ai == False:
+					if setting_food and not setting_ai and not setting_time:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_food = int(num_food)
@@ -317,7 +340,7 @@ class App:
 						else:
 							num_food += chr(event.key)
 							self._display_surf.fill((255,255,255))
-					if setting_food == False and setting_ai == False:
+					if not setting_food and not setting_ai and not setting_time:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_players = int(num_players)
@@ -334,15 +357,18 @@ class App:
 			
 				self.message_to_screen("Enter number of players.", black, "normal", self.windowWidth/2, self.windowHeight/2-115, self._display_surf)
 				self.message_to_screen(num_players, black, "normal", self.windowWidth/2, self.windowHeight/2-65, self._display_surf)
-				if setting_food == True:
-					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2, self._display_surf)
-					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+50, self._display_surf)
-				if setting_ai == True and setting_food == True:
-					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
-					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
+				if setting_food:
+					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2-15, self._display_surf)
+					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+45, self._display_surf)
+				if setting_ai and setting_food:
+					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+95, self._display_surf)
+					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+145, self._display_surf)
+				if setting_ai and setting_food and setting_time:
+					self.message_to_screen("Enter time (seconds).", black, "normal", self.windowWidth/2, self.windowHeight/2+195, self._display_surf)
+					self.message_to_screen(time_num, black, "normal", self.windowWidth/2, self.windowHeight/2+245, self._display_surf)
 
 			pygame.display.update()
-		return final_players, final_food, final_ai
+		return final_players, final_food, final_ai, final_time
  
 		#do a maximum of 4 players
 	def create_players(self, players, num_players, num_ai):
@@ -504,7 +530,7 @@ class App:
 			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
-	def on_render(self, countdown):
+	def on_render(self, countdown, elapsed_time):
 		height_division = int(self.board_height/4)
 		width_division = int(self.board_width/4)
 		self._display_surf.fill((255,255,255))
@@ -533,10 +559,11 @@ class App:
 			apple.draw(self._display_surf, self._apple_surf)
 		
 		if countdown > 0:
-			self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
+			self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 30, self._display_surf)
 			pygame.display.flip()
 			time.sleep(1)
-			self.on_render(countdown - 1)
+			self.on_render(countdown - 1, elapsed_time)
+		self.message_to_screen(str('%.3f' % (self.time - elapsed_time)), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
 		pygame.display.flip()
  
 	def on_cleanup(self):
@@ -548,22 +575,25 @@ class App:
 		init_osc()
 		while(self._running):
 			self.game_intro()
-			num_players, num_apples, num_ai = self.game_settings()
+			num_players, num_apples, num_ai, self.time = self.game_settings()
 			self.players = self.create_players(self.players, num_players, num_ai)
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			announce_start()
-			self.on_render(3)
-			while(1):
+			self.on_render(3, 0)
+			start_time = time.time()
+			elapsed_time = 0.0
+			while(elapsed_time < self.time):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
 				if keys[K_ESCAPE]:
 					break
 				self.on_loop()
-				self.on_render(0)
+				self.on_render(0, elapsed_time)
 				if check_game_status() == False:
 					break
 				time.sleep (50.0 / 1000.0);
+				elapsed_time = time.time() - start_time
 			self.reset_game()
 			reset_players()
 				
