@@ -565,6 +565,39 @@ class App:
 			self.on_render(countdown - 1, elapsed_time)
 		self.message_to_screen(str('%.3f' % (self.time - elapsed_time)), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
 		pygame.display.flip()
+
+	def game_results(self):
+		self._display_surf.fill((255,255,255))
+		done = False
+		player_lengths = []
+		for player in self.players:
+			self._display_surf.blit(self._head_surf[player.player_id-1], (self.windowWidth/2-107, 25*player.player_id-9))
+			message = 'Player ' + str(player.player_id) + ' length: ' + str(player.length)
+			self.message_to_screen(message, black, "small", self.windowWidth/2, 25*player.player_id, self._display_surf)
+			player_lengths.append((player.player_id, player.length))
+		#winner = max(player_lengths, key=operator.itemgetter(1))[0]
+		sorted_player_lengths = sorted(player_lengths, key=operator.itemgetter(1), reverse = True)
+		winners = []
+		for i in range(0, len(sorted_player_lengths)):
+			if i == 0:
+				winners.append(sorted_player_lengths[i])
+			else:
+				if sorted_player_lengths[i][1] == winners[0][1]:
+					winners.append(sorted_player_lengths[i])
+
+		message = "Congratulations player " + str(winners[0][0])
+		winners.pop(0)
+		for winner in winners:
+			message = message + ", " + str(winner[0])
+
+		self.message_to_screen(message, black, "normal", self.windowWidth/2, 25*len(self.players) + 50, self._display_surf)
+		pygame.display.flip()
+		while not done:
+			for event in pygame.event.get():
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
+						done = True
+
  
 	def on_cleanup(self):
 		pygame.quit()
@@ -594,6 +627,7 @@ class App:
 					break
 				time.sleep (50.0 / 1000.0);
 				elapsed_time = time.time() - start_time
+			self.game_results()
 			self.reset_game()
 			reset_players()
 				
