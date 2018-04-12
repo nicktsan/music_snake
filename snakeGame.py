@@ -48,7 +48,7 @@ class Player:
 	ai = False
 	angle = 90
 	alive = True
-	respawn_timer = 0.0
+	respawn = 0
  
 	updateCountMax = 2
 	updateCount = 0
@@ -60,9 +60,13 @@ class Player:
 		self.y = []
  
 		 # initial positions, no collision.
-		for i in range(0, length):
-			self.x.append(x0)
-			self.y.append(y0+i)
+		self.x.append(x0)
+		self.x.append(x0)
+		self.x.append(x0)
+
+		self.y.append(y0)
+		self.y.append(y0+1)
+		self.y.append(y0+2)
  
 	def update(self, height, width):
 		if self.hp > 0:
@@ -103,72 +107,53 @@ class Player:
 					
 	def kill(self):
 		self.hp = 0
-		self.x.clear()
-		self.y.clear()
+		self.x = 0
+		self.y = 0
 		self.length = 0
 		self.alive = False
-		self.direction = "up"
-		self.respawn_timer = 5000.0
 		#for python 2.7
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
 		death_trigger(self.length, self.player_id)
 
-	def respawn(self, board, board_width, board_height, length):
+	def respawn(self, board, board_width, board_height):
 		x_respawn = random.randint(5, board_width - 6)
 		y_respawn = random.randint(5, board_height - 6)
 		valid_spawn = False
+		"""
 
-		#check within a 2 tile radius of respawn for obstacles
+
+		TO BE COMPLETED
+
+
+		"""
 		while not valid_spawn:
 			valid_spawn = True
 			while is_obstacle(x_respawn, y_respawn, board):
 				x_respawn = random.randint(5, board_width - 6)
 				y_respawn = random.randint(5, board_height - 6)
 
-			for i in range(0, length):
-				print("tile check: " + str(x_respawn) + ", " + str(y_respawn+i))
+			for i in range(0, 3):
 				#for radius = 0
-				if is_obstacle(x_respawn, y_respawn+i, board) and not is_apple(x_respawn, y_respawn+i, board):
-					valid_spawn = False
-					break
+				if is_obstacle(x_respawn, y_respawn+i, board):
+					valid_spawn = False	
 
 				#for radius = 1
-				for dX in range(-1, 2):
+				for x_displacement in range(-1, 2):
 					#calculate absolute value of y
-					dY = 1 - abs(dX)
-					neg_dY = dY*-1
-					if is_obstacle(x_respawn+dX, y_respawn+i+dY, board) or is_obstacle(x_respawn+dX, y_respawn+i+neg_dY, board):
+					y_displacement = 1 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
 						valid_spawn = False
-						break
 
 				#for radius = 2
-				for dX in range(-2, 3):
+				for x_displacement in range(-2, 3):
 					#calculate absolute value of y
-					dY = 2 - abs(dX)
-					neg_dY = dY*-1
-					if is_obstacle(x_respawn+dX, y_respawn+i+dY, board) or is_obstacle(x_respawn+dX, y_respawn+i+neg_dY, board):
+					y_displacement = 2 - abs(x_displacement)
+					neg_y_displacement = y_displacement*-1
+					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
 						valid_spawn = False
-						break
-				if not valid_spawn:
-					x_respawn = random.randint(5, board_width - 6)
-					y_respawn = random.randint(5, board_height - 6)
-					break
-
-			self.hp = 100
-			self.x = []
-			self.y = []
-			self.direction = "up"
-			self.length = 3
-			self.angle = 90
-			self.alive = True
-			self.respawn_timer = 0.0
-			self.updateCountMax = 2
-			self.updateCount = 0
-			for i in range(0, length):
-				self.x.append(x_respawn)
-				self.y.append(y_respawn+i)
 
 	def moveRight(self):
 		self.direction = "right"
@@ -211,7 +196,6 @@ class App:
 	board = 0
 	board_width = 28
 	board_height = 28
-	time = 0
 
 	def __init__(self):
 		self._running = True
@@ -222,7 +206,6 @@ class App:
 		self.game = Game()
 
 	def reset_game(self):
-		self.time = 0
 		self.players.clear()
 		self.apples.clear()
 		self.board = 0
@@ -274,12 +257,9 @@ class App:
 		num_food = ""
 		setting_ai = False
 		num_ai = ""
-		setting_time = False
-		time_num = ""
 		final_players = 0
 		final_food = 0
 		final_ai = 0
-		final_time = 0
 		while settings: 
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -287,38 +267,15 @@ class App:
 					kill_server()
 					quit()
 				if event.type == pygame.KEYDOWN:
-
 					if event.key == pygame.K_ESCAPE:
-						if setting_ai and setting_food and setting_time:
-							setting_time = False
-						elif setting_ai and setting_food and not setting_time:
-							setting_ai = False
-						elif not setting_ai and setting_food and not setting_time:
-							setting_food = False
-						else:
-							pygame.quit()
-							kill_server()
-							quit()
-
-					if setting_ai and setting_food and setting_time:
-						if event.key == pygame.K_RETURN:
-							try:
-								final_time = int(time_num)
-								settings = False
-							except ValueError:
-								print ("Only accepts integers.")
-						elif event.key == pygame.K_BACKSPACE:
-							time_num = time_num[:-1]
-							self._display_surf.fill((255,255,255))
-						else:
-							time_num += chr(event.key)
-							self._display_surf.fill((255,255,255))
-
-					if setting_ai and setting_food and not setting_time:
+						pygame.quit()
+						kill_server()
+						quit()
+					if setting_ai == True and setting_food == True:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_ai = int(num_ai)
-								setting_time = True
+								settings = False
 							except ValueError:
 								print ("Only accepts integers.")
 						elif event.key == pygame.K_BACKSPACE:
@@ -327,7 +284,7 @@ class App:
 						else:
 							num_ai += chr(event.key)
 							self._display_surf.fill((255,255,255))
-					if setting_food and not setting_ai and not setting_time:
+					if setting_food == True and setting_ai == False:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_food = int(num_food)
@@ -340,7 +297,7 @@ class App:
 						else:
 							num_food += chr(event.key)
 							self._display_surf.fill((255,255,255))
-					if not setting_food and not setting_ai and not setting_time:
+					if setting_food == False and setting_ai == False:
 						if event.key == pygame.K_RETURN:
 							try:
 								final_players = int(num_players)
@@ -357,18 +314,15 @@ class App:
 			
 				self.message_to_screen("Enter number of players.", black, "normal", self.windowWidth/2, self.windowHeight/2-115, self._display_surf)
 				self.message_to_screen(num_players, black, "normal", self.windowWidth/2, self.windowHeight/2-65, self._display_surf)
-				if setting_food:
-					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2-15, self._display_surf)
-					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+45, self._display_surf)
-				if setting_ai and setting_food:
-					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+95, self._display_surf)
-					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+145, self._display_surf)
-				if setting_ai and setting_food and setting_time:
-					self.message_to_screen("Enter time (seconds).", black, "normal", self.windowWidth/2, self.windowHeight/2+195, self._display_surf)
-					self.message_to_screen(time_num, black, "normal", self.windowWidth/2, self.windowHeight/2+245, self._display_surf)
+				if setting_food == True:
+					self.message_to_screen("Enter number of food.", black, "normal", self.windowWidth/2, self.windowHeight/2, self._display_surf)
+					self.message_to_screen(num_food, black, "normal", self.windowWidth/2, self.windowHeight/2+50, self._display_surf)
+				if setting_ai == True and setting_food == True:
+					self.message_to_screen("Enter number of AI.", black, "normal", self.windowWidth/2, self.windowHeight/2+115, self._display_surf)
+					self.message_to_screen(num_ai, black, "normal", self.windowWidth/2, self.windowHeight/2+165, self._display_surf)
 
 			pygame.display.update()
-		return final_players, final_food, final_ai, final_time
+		return final_players, final_food, final_ai
  
 		#do a maximum of 4 players
 	def create_players(self, players, num_players, num_ai):
@@ -521,16 +475,10 @@ class App:
 			player.kill()
 		self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
 		for player in self.players:
-			if player.hp <= 0:
-				if player.respawn_timer == 0:
-					player.respawn(self.board, self.board_width, self.board_height, 3)
-					self.board = update_board(self.players, self.apples, self.board_width, self.board_height)
-				else:
-					player.respawn_timer -= 50
 			if player.ai and player.hp > 0:
 				self.calc_move(player)
  
-	def on_render(self, countdown, elapsed_time):
+	def on_render(self, countdown):
 		height_division = int(self.board_height/4)
 		width_division = int(self.board_width/4)
 		self._display_surf.fill((255,255,255))
@@ -559,45 +507,11 @@ class App:
 			apple.draw(self._display_surf, self._apple_surf)
 		
 		if countdown > 0:
-			self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 30, self._display_surf)
+			self.message_to_screen(str(countdown), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
 			pygame.display.flip()
 			time.sleep(1)
-			self.on_render(countdown - 1, elapsed_time)
-		self.message_to_screen(str('%.3f' % (self.time - elapsed_time)), black, "normal", stats_midpoint, self.windowHeight - 60, self._display_surf)
+			self.on_render(countdown - 1)
 		pygame.display.flip()
-
-	def game_results(self):
-		self._display_surf.fill((255,255,255))
-		done = False
-		player_lengths = []
-		for player in self.players:
-			self._display_surf.blit(self._head_surf[player.player_id-1], (self.windowWidth/2-107, 25*player.player_id-9))
-			message = 'Player ' + str(player.player_id) + ' length: ' + str(player.length)
-			self.message_to_screen(message, black, "small", self.windowWidth/2, 25*player.player_id, self._display_surf)
-			player_lengths.append((player.player_id, player.length))
-		#winner = max(player_lengths, key=operator.itemgetter(1))[0]
-		sorted_player_lengths = sorted(player_lengths, key=operator.itemgetter(1), reverse = True)
-		winners = []
-		for i in range(0, len(sorted_player_lengths)):
-			if i == 0:
-				winners.append(sorted_player_lengths[i])
-			else:
-				if sorted_player_lengths[i][1] == winners[0][1]:
-					winners.append(sorted_player_lengths[i])
-
-		message = "Congratulations player " + str(winners[0][0])
-		winners.pop(0)
-		for winner in winners:
-			message = message + ", " + str(winner[0])
-
-		self.message_to_screen(message, black, "normal", self.windowWidth/2, 25*len(self.players) + 50, self._display_surf)
-		pygame.display.flip()
-		while not done:
-			for event in pygame.event.get():
-				if event.type == pygame.KEYDOWN:
-					if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
-						done = True
-
  
 	def on_cleanup(self):
 		pygame.quit()
@@ -608,26 +522,28 @@ class App:
 		init_osc()
 		while(self._running):
 			self.game_intro()
-			num_players, num_apples, num_ai, self.time = self.game_settings()
+			num_players, num_apples, num_ai = self.game_settings()
 			self.players = self.create_players(self.players, num_players, num_ai)
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			announce_start()
-			self.on_render(3, 0)
-			start_time = time.time()
-			elapsed_time = 0.0
-			while(elapsed_time < self.time):
+			self.on_render(3)
+			while(1):
 				pygame.event.pump()
 				keys = pygame.key.get_pressed()
+				alive_status = 0
+				alive_status = []
 				if keys[K_ESCAPE]:
 					break
 				self.on_loop()
-				self.on_render(0, elapsed_time)
+				self.on_render(0)
+				for player in self.players:
+					alive_status.append(player.alive)
+				if not any(alive_status):
+					break
 				if check_game_status() == False:
 					break
 				time.sleep (50.0 / 1000.0);
-				elapsed_time = time.time() - start_time
-			self.game_results()
 			self.reset_game()
 			reset_players()
 				

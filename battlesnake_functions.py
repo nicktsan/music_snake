@@ -32,11 +32,6 @@ def is_obstacle(x, y, board):
 		return True
 	return False
 
-def is_apple(x, y, board):
-	if type(board[y][x]) == int:
-		return True
-	return False
-
 def init_board(apples, num_apples, snake_list, width, height):
 	#initialize a 2d list of 0's with width number of columns and height number of rows.
 	board = [([0] * width) for row in range(height)]
