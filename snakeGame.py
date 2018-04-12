@@ -102,6 +102,7 @@ class Player:
 					self.kill()
 					
 	def kill(self):
+		death_trigger(self.length, self.player_id)
 		self.hp = 0
 		self.x.clear()
 		self.y.clear()
@@ -112,8 +113,8 @@ class Player:
 		#for python 2.7
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
-		print("player", self.player_id, "died!")
-		death_trigger(self.length, self.player_id)
+		#print("player", self.player_id, "died!")
+		
 
 	def respawn(self, board, board_width, board_height, length):
 		x_respawn = random.randint(5, board_width - 6)
@@ -128,7 +129,7 @@ class Player:
 				y_respawn = random.randint(5, board_height - 6)
 
 			for i in range(0, length):
-				print("tile check: " + str(x_respawn) + ", " + str(y_respawn+i))
+				#print("tile check: " + str(x_respawn) + ", " + str(y_respawn+i))
 				#for radius = 0
 				if is_obstacle(x_respawn, y_respawn+i, board) and not is_apple(x_respawn, y_respawn+i, board):
 					valid_spawn = False
@@ -246,6 +247,10 @@ class App:
 		self._display_surf.fill((255,255,255))
 		intro = True
 		while intro:
+			if check_game_status() == False:
+				pygame.quit()
+				kill_server()
+				quit()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
@@ -281,13 +286,16 @@ class App:
 		final_ai = 0
 		final_time = 0
 		while settings: 
+			if check_game_status() == False:
+				pygame.quit()
+				kill_server()
+				quit()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					kill_server()
 					quit()
 				if event.type == pygame.KEYDOWN:
-
 					if event.key == pygame.K_ESCAPE:
 						if setting_ai and setting_food and setting_time:
 							setting_time = False
@@ -408,7 +416,7 @@ class App:
 			try:
 				direction = random.choice(directions)
 			except IndexError:
-				print ("Goodbye cruel world!")
+				#print ("Goodbye cruel world!")
 				direction = 'up'
 			if (len(directions) > 1):
 				#make a dictionary for remaining viable directions.
@@ -531,6 +539,8 @@ class App:
 				self.calc_move(player)
  
 	def on_render(self, countdown, elapsed_time):
+		if countdown == 2:
+			begin_sfx()
 		height_division = int(self.board_height/4)
 		width_division = int(self.board_width/4)
 		self._display_surf.fill((255,255,255))
@@ -575,6 +585,10 @@ class App:
 			message = 'Player ' + str(player.player_id) + ' length: ' + str(player.length)
 			self.message_to_screen(message, black, "small", self.windowWidth/2, 25*player.player_id, self._display_surf)
 			player_lengths.append((player.player_id, player.length))
+			pygame.display.flip()
+			time.sleep(0.5)
+		time.sleep(0.5)
+		announce_winner()
 		#winner = max(player_lengths, key=operator.itemgetter(1))[0]
 		sorted_player_lengths = sorted(player_lengths, key=operator.itemgetter(1), reverse = True)
 		winners = []
@@ -589,16 +603,19 @@ class App:
 		winners.pop(0)
 		for winner in winners:
 			message = message + ", " + str(winner[0])
-
+		time.sleep(2.5)
+		congratulations()
 		self.message_to_screen(message, black, "normal", self.windowWidth/2, 25*len(self.players) + 50, self._display_surf)
 		pygame.display.flip()
 		while not done:
+			if check_game_status() == False:
+				done = True
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
 						done = True
+		reset_game_status()
 
- 
 	def on_cleanup(self):
 		pygame.quit()
  
@@ -613,8 +630,9 @@ class App:
 			create_dirs(num_players)
 			self.board = init_board(self.apples, num_apples, self.players, self.board_width, self.board_height)
 			announce_start()
-			self.on_render(3, 0)
+			self.on_render(5, 0)
 			start_time = time.time()
+			start_timer(self.time)
 			elapsed_time = 0.0
 			while(elapsed_time < self.time):
 				pygame.event.pump()
@@ -627,10 +645,9 @@ class App:
 					break
 				time.sleep (50.0 / 1000.0);
 				elapsed_time = time.time() - start_time
+			reset_players()
 			self.game_results()
 			self.reset_game()
-			reset_players()
-				
 		self.on_cleanup()
  
 if __name__ == "__main__" :

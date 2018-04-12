@@ -112,18 +112,20 @@ def player2right(unused_addr):
 		directions[1] = "right"
 	except (IndexError):
 		pass
+
+def start_timer(time):
+	client.send_message("/settime", time)
+
 def death_trigger(length, player_id):
-	global client
 	msg = "/move/" + str(player_id)
 	client.send_message("/death", length)
 	client.send_message(msg, "dead")
 
 def eat_trigger(length):
-	global client
 	client.send_message("/eat", length)
 
 def send_dir(move, player_id):
-	global client
+	
 	msg = "/move/" + str(player_id)
 	client.send_message(msg, move)
 
@@ -135,11 +137,21 @@ def create_dirs(num_players):
 		directions.append("up")
 
 def announce_start():
-	global client
-	client.send_message("/announcer", random.randint(1, 3))
-				
+	client.send_message("/announcer", random.randint(1, 5))
+
+def begin_sfx():
+	client.send_message("/begingame", random.randint(1, 5))
+
+def announce_winner():
+	client.send_message("/announcewinner", 1)
+
+def congratulations():
+	client.send_message("/congrats", 1)
+
+def announce_endgame():
+	client.send_message("/endgame", 1)
+		
 def reset_players():
-	global client
 	global game_status
 	game_status = True
 	print('resetting players')
@@ -150,7 +162,7 @@ def reset_players():
 
 def send_quadrant(x, y, board_height, board_width):
 	#0-7 8-15 16-23 24-31 32-34
-	global client
+	
 	height_division = int(board_height/4)
 	width_division = int(board_width/4)
 	x_section = int(x/width_division)
@@ -166,34 +178,42 @@ def kill_server():
 	global server
 	global server_thread
 	server.shutdown()
+	"""
 	print("active threads: ")
 	print(threading.active_count())
+	"""
 
 def check_game_status():
 	return game_status
+
+def reset_game_status():
+	global game_status
+	game_status = True
 
 def exitgame(unused_addr):
 	global game_status
 	game_status = False
 
 def init_osc():
+	global server
+	global server_thread
+	global dispatcher
+	global client
 	#for my laptop to uvic wifi
 	#ip = "134.87.146.10"
 	#for uvic mac studio 2 computer
-	#ip = "192.168.1.102"
+	ip = "192.168.1.102"
 	#for home laptop at home ethernet
-	ip = "192.168.1.123"
+	#ip = "192.168.1.123"
 	#for uvic wifi
 	#ip = "134.87.155.109"
 	sendPort = 5005
 	inPort = 8000
 
 	#sending osc messages on
-	global client
 	client = udp_client.SimpleUDPClient(ip, sendPort)
 
 	#catches OSC messages
-	global dispatcher
 	dispatcher = dispatcher.Dispatcher()
 	dispatcher.map("/calibrate", calibrate_threshold)
 	dispatcher.map("/startListening", start_listening)
@@ -209,14 +229,10 @@ def init_osc():
 	dispatcher.map("/exit", exitgame)
 	
 	#set up server to listen for osc messages
-	global server
-	global server_thread
 	server = osc_server.ThreadingOSCUDPServer((ip, inPort), dispatcher)
 	server_thread = threading.Thread(target=server.serve_forever)
 	server_thread.start()
 	print ("servering on {}".format(server.server_address))
-	print("active threads: ")
-	print(threading.active_count())
 
 if __name__ == "__main__":
 	init_osc()
