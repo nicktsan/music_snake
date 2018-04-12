@@ -38,6 +38,832 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-140",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 3048.5, 657.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-139",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 2922.5, 657.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-138",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 2680.5, 702.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-137",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 2376.5, 702.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-136",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 2234.5, 706.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-135",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1799.5, 695.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-134",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1327.5, 691.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-133",
+					"maxclass" : "newobj",
+					"numinlets" : 4,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1037.0, 657.5, 77.0, 22.0 ],
+					"style" : "",
+					"text" : "dac~ 1 2 3 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-132",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 2659.0, 326.0, 24.0, 24.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-130",
+					"maxclass" : "live.gain~",
+					"numinlets" : 2,
+					"numoutlets" : 5,
+					"orientation" : 1,
+					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 2906.0, 493.0, 121.0, 48.0 ],
+					"presentation_rect" : [ 105.0, 105.0, 50.0, 48.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "live.gain~[7]",
+							"parameter_shortname" : "live.gain~",
+							"parameter_type" : 0,
+							"parameter_mmin" : -70.0,
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
+						}
+
+					}
+,
+					"varname" : "live.gain~[7]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/maxpatches/sfx/Super Mario Bros (NES) Music - Level Clear.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-129",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 2898.0, 382.0, 150.0, 30.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-127",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "int" ],
+					"patching_rect" : [ 2595.0, 335.0, 35.0, 22.0 ],
+					"style" : "",
+					"text" : "== 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-120",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 2564.0, 240.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : "dec"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-114",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 2700.0, 230.0, 29.5, 22.0 ],
+					"style" : "",
+					"text" : "0"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-67",
+					"maxclass" : "newobj",
+					"numinlets" : 5,
+					"numoutlets" : 4,
+					"outlettype" : [ "int", "", "", "int" ],
+					"patching_rect" : [ 2564.0, 275.0, 81.0, 22.0 ],
+					"style" : "",
+					"text" : "counter 0 0 5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-63",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 2564.0, 200.0, 71.0, 22.0 ],
+					"style" : "",
+					"text" : "metro 1000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-51",
+					"maxclass" : "live.gain~",
+					"numinlets" : 2,
+					"numoutlets" : 5,
+					"orientation" : 1,
+					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 2557.0, 572.0, 121.0, 48.0 ],
+					"presentation_rect" : [ 105.0, 105.0, 50.0, 48.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "live.gain~[6]",
+							"parameter_shortname" : "live.gain~",
+							"parameter_type" : 0,
+							"parameter_mmin" : -70.0,
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
+						}
+
+					}
+,
+					"varname" : "live.gain~[6]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-48",
+					"maxclass" : "live.gain~",
+					"numinlets" : 2,
+					"numoutlets" : 5,
+					"orientation" : 1,
+					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 2753.0, 499.0, 121.0, 48.0 ],
+					"presentation_rect" : [ 90.0, 90.0, 50.0, 48.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "live.gain~[5]",
+							"parameter_shortname" : "live.gain~",
+							"parameter_type" : 0,
+							"parameter_mmin" : -70.0,
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
+						}
+
+					}
+,
+					"varname" : "live.gain~[5]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/Game!.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-42",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 2728.0, 382.0, 150.0, 30.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-40",
+					"maxclass" : "live.gain~",
+					"numinlets" : 2,
+					"numoutlets" : 5,
+					"orientation" : 1,
+					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 3066.0, 489.0, 121.0, 48.0 ],
+					"presentation_rect" : [ 75.0, 75.0, 50.0, 48.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "live.gain~[4]",
+							"parameter_shortname" : "live.gain~",
+							"parameter_type" : 0,
+							"parameter_mmin" : -70.0,
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
+						}
+
+					}
+,
+					"varname" : "live.gain~[4]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"clipheight" : 29.0,
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/1.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/2.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/3.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/4.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode/5.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-38",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 2564.0, 382.0, 150.0, 150.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/End Round Narrator/this_games_winner_is.dsp.wav",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-31",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 3066.0, 382.0, 150.0, 30.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-29",
+					"maxclass" : "live.gain~",
+					"numinlets" : 2,
+					"numoutlets" : 5,
+					"orientation" : 1,
+					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 2383.0, 575.0, 121.0, 48.0 ],
+					"presentation_rect" : [ 60.0, 60.0, 50.0, 48.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "live.gain~[3]",
+							"parameter_shortname" : "live.gain~",
+							"parameter_type" : 0,
+							"parameter_mmin" : -70.0,
+							"parameter_mmax" : 6.0,
+							"parameter_initial" : [ 0.0 ],
+							"parameter_unitstyle" : 4
+						}
+
+					}
+,
+					"varname" : "live.gain~[3]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"clipheight" : 29.0,
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin/And begin!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin/Here goes!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin/It's on!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin/Now go!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin/You're up!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-27",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 2390.0, 382.0, 150.0, 150.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"clipheight" : 29.0,
+					"data" : 					{
+						"clips" : [ 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/A brawl is surely brewing!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/A good day for a swell battle!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/A great slam and then some!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/Here's a real high class bout!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+, 							{
+								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/This match will get red hot!.mp3",
+								"filekind" : "audiofile",
+								"loop" : 0,
+								"content_state" : 								{
+									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
+									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
+									"originallengthms" : [ 0.0 ],
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
+								}
+
+							}
+ ]
+					}
+,
+					"id" : "obj-12",
+					"maxclass" : "playlist~",
+					"numinlets" : 1,
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
+					"patching_rect" : [ 2216.0, 382.0, 150.0, 150.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-45",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -647,7 +1473,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1464.0, 493.0, 77.0, 22.0 ],
+					"patching_rect" : [ 1189.0, 499.0, 77.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -1272,7 +2098,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1374.0, 493.0, 77.0, 22.0 ],
+					"patching_rect" : [ 1099.0, 499.0, 77.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -1897,7 +2723,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1282.0, 493.0, 77.0, 22.0 ],
+					"patching_rect" : [ 1007.0, 499.0, 77.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -1908,18 +2734,6 @@
 ,
 					"style" : "",
 					"text" : "p movement"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-1",
-					"maxclass" : "newobj",
-					"numinlets" : 4,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1320.0, 618.0, 77.0, 22.0 ],
-					"style" : "",
-					"text" : "dac~ 1 2 3 4"
 				}
 
 			}
@@ -1943,7 +2757,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1092.0, 400.0, 37.0, 22.0 ],
+					"patching_rect" : [ 817.0, 406.0, 37.0, 22.0 ],
 					"style" : "",
 					"text" : "bang"
 				}
@@ -1956,7 +2770,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1092.0, 439.0, 72.0, 22.0 ],
+					"patching_rect" : [ 817.0, 445.0, 72.0, 22.0 ],
 					"style" : "",
 					"text" : "loadmess 0"
 				}
@@ -2006,7 +2820,6 @@
 						"tags" : "",
 						"style" : "",
 						"subpatcher_template" : "",
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-62",
@@ -2574,7 +3387,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 1186.0, 492.0, 77.0, 22.0 ],
+					"patching_rect" : [ 911.0, 498.0, 77.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -2590,18 +3403,6 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-66",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 2849.0, 458.5, 37.0, 22.0 ],
-					"style" : "",
-					"text" : "dac~"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-65",
 					"maxclass" : "live.gain~",
 					"numinlets" : 2,
@@ -2609,7 +3410,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2849.0, 381.5, 121.0, 48.0 ],
+					"patching_rect" : [ 2245.0, 575.0, 121.0, 48.0 ],
 					"presentation_rect" : [ 45.0, 45.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -2630,98 +3431,12 @@
 			}
 , 			{
 				"box" : 				{
-					"clipheight" : 29.0,
-					"data" : 					{
-						"clips" : [ 							{
-								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer/A brawl is surely brewing!.mp3",
-								"filekind" : "audiofile",
-								"loop" : 0,
-								"content_state" : 								{
-									"slurtime" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"play" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"formantcorrection" : [ 0 ],
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ]
-								}
-
-							}
-, 							{
-								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer/A good day for a swell battle!.mp3",
-								"filekind" : "audiofile",
-								"loop" : 0,
-								"content_state" : 								{
-									"slurtime" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"play" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"formantcorrection" : [ 0 ],
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ]
-								}
-
-							}
-, 							{
-								"filename" : "Project Space:/Users/simuser/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer/A great slam and then some!.mp3",
-								"filekind" : "audiofile",
-								"loop" : 0,
-								"content_state" : 								{
-									"slurtime" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"play" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"formantcorrection" : [ 0 ],
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
-									"quality" : [ "basic" ],
-									"pitchcorrection" : [ 0 ],
-									"originallengthms" : [ 0.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ]
-								}
-
-							}
- ]
-					}
-,
-					"id" : "obj-63",
-					"maxclass" : "playlist~",
-					"numinlets" : 1,
-					"numoutlets" : 5,
-					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 2849.0, 251.0, 150.0, 90.0 ],
-					"style" : ""
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-33",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
-					"patching_rect" : [ 1290.0, 380.0, 121.0, 22.0 ],
+					"patching_rect" : [ 1015.0, 386.0, 121.0, 22.0 ],
 					"style" : "",
 					"text" : "OSC-route /1 /2 /3 /4"
 				}
@@ -2734,21 +3449,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2458.5, 372.0, 122.0, 22.0 ],
+					"patching_rect" : [ 1820.5, 386.0, 122.0, 22.0 ],
 					"style" : "",
 					"text" : "expr ($f1 + 3)* (-100)"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-52",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 2458.5, 637.0, 37.0, 22.0 ],
-					"style" : "",
-					"text" : "dac~"
 				}
 
 			}
@@ -2758,7 +3461,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 2708.5, 555.0, 150.0, 20.0 ],
+					"patching_rect" : [ 2049.5, 574.0, 150.0, 20.0 ],
 					"style" : "",
 					"text" : "pitchshift the playback"
 				}
@@ -2773,7 +3476,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2626.5, 625.5, 23.0, 23.0 ],
+					"patching_rect" : [ 1967.5, 644.5, 23.0, 23.0 ],
 					"style" : "",
 					"text" : "t l"
 				}
@@ -2790,7 +3493,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 2626.5, 555.0, 54.0, 23.0 ],
+					"patching_rect" : [ 1967.5, 574.0, 54.0, 23.0 ],
 					"style" : ""
 				}
 
@@ -2804,7 +3507,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 2626.5, 524.0, 63.0, 23.0 ],
+					"patching_rect" : [ 1967.5, 543.0, 63.0, 23.0 ],
 					"style" : "",
 					"text" : "line 0. 0."
 				}
@@ -2819,7 +3522,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2626.5, 490.0, 101.0, 23.0 ],
+					"patching_rect" : [ 1967.5, 509.0, 101.0, 23.0 ],
 					"style" : "",
 					"text" : "pack 0. 0."
 				}
@@ -2834,7 +3537,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2708.5, 440.5, 54.0, 36.0 ],
+					"patching_rect" : [ 2049.5, 459.5, 54.0, 36.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_linknames" : 1,
@@ -2862,7 +3565,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2626.5, 407.5, 56.0, 47.0 ],
+					"patching_rect" : [ 1967.5, 426.5, 56.0, 47.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_linknames" : 1,
@@ -2892,7 +3595,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2626.5, 589.0, 102.0, 23.0 ],
+					"patching_rect" : [ 1967.5, 608.0, 102.0, 23.0 ],
 					"style" : "",
 					"text" : "pitchshiftcent $1"
 				}
@@ -2905,11 +3608,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "list" ],
-					"patching_rect" : [ 2458.5, 594.5, 65.0, 22.0 ],
+					"patching_rect" : [ 1799.5, 613.5, 65.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"enabled" : [ 1 ],
-						"pitchshift" : [ 0.840896 ],
-						"pitchshiftcent" : [ -300 ],
+						"pitchshift" : [ 0.707107 ],
+						"pitchshiftcent" : [ -600 ],
 						"quality" : "basic",
 						"reportlatency" : 0,
 						"usecents" : 0
@@ -2929,7 +3632,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2458.5, 511.5, 121.0, 48.0 ],
+					"patching_rect" : [ 1799.5, 530.5, 121.0, 48.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -2955,7 +3658,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2458.5, 407.5, 29.5, 22.0 ],
+					"patching_rect" : [ 1799.5, 426.5, 29.5, 22.0 ],
 					"style" : "",
 					"text" : "1"
 				}
@@ -2969,21 +3672,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"slurtime" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"play" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"formantcorrection" : [ 0 ],
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
 									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
 									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"originallengthms" : [ 0.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ]
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
 								}
 
 							}
@@ -2995,7 +3698,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 2458.5, 448.5, 150.0, 30.0 ],
+					"patching_rect" : [ 1799.5, 467.5, 150.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -3007,21 +3710,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1998.5, 367.0, 122.0, 22.0 ],
+					"patching_rect" : [ 1339.5, 386.0, 122.0, 22.0 ],
 					"style" : "",
 					"text" : "expr ($f1 + 3)* (-100)"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-17",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1998.5, 637.0, 37.0, 22.0 ],
-					"style" : "",
-					"text" : "dac~"
 				}
 
 			}
@@ -3031,7 +3722,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 2237.5, 535.0, 150.0, 20.0 ],
+					"patching_rect" : [ 1578.5, 554.0, 150.0, 20.0 ],
 					"style" : "",
 					"text" : "pitchshift the playback"
 				}
@@ -3046,7 +3737,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2155.5, 605.5, 23.0, 23.0 ],
+					"patching_rect" : [ 1496.5, 624.5, 23.0, 23.0 ],
 					"style" : "",
 					"text" : "t l"
 				}
@@ -3063,7 +3754,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 2155.5, 535.0, 54.0, 23.0 ],
+					"patching_rect" : [ 1496.5, 554.0, 54.0, 23.0 ],
 					"style" : ""
 				}
 
@@ -3077,7 +3768,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 2155.5, 504.0, 63.0, 23.0 ],
+					"patching_rect" : [ 1496.5, 523.0, 63.0, 23.0 ],
 					"style" : "",
 					"text" : "line 0. 0."
 				}
@@ -3092,7 +3783,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2155.5, 470.0, 101.0, 23.0 ],
+					"patching_rect" : [ 1496.5, 489.0, 101.0, 23.0 ],
 					"style" : "",
 					"text" : "pack 0. 0."
 				}
@@ -3107,7 +3798,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2237.5, 420.5, 54.0, 36.0 ],
+					"patching_rect" : [ 1578.5, 439.5, 54.0, 36.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_linknames" : 1,
@@ -3135,7 +3826,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 2155.5, 387.5, 56.0, 47.0 ],
+					"patching_rect" : [ 1496.5, 406.5, 56.0, 47.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_linknames" : 1,
@@ -3165,7 +3856,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 2155.5, 569.0, 102.0, 23.0 ],
+					"patching_rect" : [ 1496.5, 588.0, 102.0, 23.0 ],
 					"style" : "",
 					"text" : "pitchshiftcent $1"
 				}
@@ -3178,11 +3869,11 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "list" ],
-					"patching_rect" : [ 1998.5, 594.5, 65.0, 22.0 ],
+					"patching_rect" : [ 1339.5, 613.5, 65.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"enabled" : [ 1 ],
-						"pitchshift" : [ 0.25 ],
-						"pitchshiftcent" : [ -2400 ],
+						"pitchshift" : [ 0.5 ],
+						"pitchshiftcent" : [ -1200 ],
 						"quality" : "basic",
 						"reportlatency" : 0,
 						"usecents" : 0
@@ -3202,7 +3893,7 @@
 					"orientation" : 1,
 					"outlettype" : [ "signal", "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 1999.5, 511.5, 121.0, 48.0 ],
+					"patching_rect" : [ 1340.5, 530.5, 121.0, 48.0 ],
 					"presentation_rect" : [ 15.0, 15.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
@@ -3229,21 +3920,21 @@
 								"filekind" : "audiofile",
 								"loop" : 0,
 								"content_state" : 								{
-									"slurtime" : [ 0.0 ],
-									"pitchshift" : [ 1.0 ],
-									"play" : [ 0 ],
-									"speed" : [ 1.0 ],
-									"timestretch" : [ 0 ],
-									"mode" : [ "basic" ],
-									"basictuning" : [ 440 ],
-									"formantcorrection" : [ 0 ],
-									"formant" : [ 1.0 ],
-									"followglobaltempo" : [ 0 ],
 									"quality" : [ "basic" ],
+									"slurtime" : [ 0.0 ],
+									"formant" : [ 1.0 ],
+									"originaltempo" : [ 120.0 ],
+									"pitchshift" : [ 1.0 ],
+									"followglobaltempo" : [ 0 ],
+									"mode" : [ "basic" ],
+									"timestretch" : [ 0 ],
 									"pitchcorrection" : [ 0 ],
+									"play" : [ 0 ],
+									"basictuning" : [ 440 ],
 									"originallengthms" : [ 0.0 ],
-									"originallength" : [ 0.0, "ticks" ],
-									"originaltempo" : [ 120.0 ]
+									"speed" : [ 1.0 ],
+									"formantcorrection" : [ 0 ],
+									"originallength" : [ 0.0, "ticks" ]
 								}
 
 							}
@@ -3255,7 +3946,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "signal", "", "dictionary" ],
-					"patching_rect" : [ 1998.5, 448.5, 150.0, 30.0 ],
+					"patching_rect" : [ 1339.5, 467.5, 150.0, 30.0 ],
 					"style" : ""
 				}
 
@@ -3267,7 +3958,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1998.5, 407.5, 29.5, 22.0 ],
+					"patching_rect" : [ 1339.5, 426.5, 29.5, 22.0 ],
 					"style" : "",
 					"text" : "1"
 				}
@@ -4032,9 +4723,9 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "int", "" ],
-									"patching_rect" : [ 321.5, 401.0, 85.0, 22.0 ],
+									"patching_rect" : [ 321.5, 401.0, 86.0, 22.0 ],
 									"style" : "",
-									"text" : "serial c 57600"
+									"text" : "serial b 57600"
 								}
 
 							}
@@ -4247,11 +4938,11 @@
 					"id" : "obj-19",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 6,
-					"outlettype" : [ "", "", "", "", "", "" ],
-					"patching_rect" : [ 1236.0, 41.0, 281.0, 22.0 ],
+					"numoutlets" : 10,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 1236.0, 41.0, 540.0, 22.0 ],
 					"style" : "",
-					"text" : "OSC-route /quadrant /move /eat /death /announcer"
+					"text" : "OSC-route /quadrant /move /eat /death /announcer /begingame /settime /congrats /announcewinner"
 				}
 
 			}
@@ -4323,7 +5014,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 1 ],
+					"destination" : [ "obj-134", 3 ],
 					"order" : 0,
 					"source" : [ "obj-11", 0 ]
 				}
@@ -4331,8 +5022,24 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-17", 0 ],
+					"destination" : [ "obj-134", 2 ],
 					"order" : 1,
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-134", 1 ],
+					"order" : 2,
+					"source" : [ "obj-11", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-134", 0 ],
+					"order" : 3,
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -4341,6 +5048,55 @@
 				"patchline" : 				{
 					"destination" : [ "obj-109", 0 ],
 					"source" : [ "obj-110", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-63", 0 ],
+					"source" : [ "obj-114", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-65", 1 ],
+					"source" : [ "obj-12", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-65", 0 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-67", 0 ],
+					"source" : [ "obj-120", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-42", 0 ],
+					"source" : [ "obj-127", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-130", 1 ],
+					"source" : [ "obj-129", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-130", 0 ],
+					"source" : [ "obj-129", 0 ]
 				}
 
 			}
@@ -4355,6 +5111,45 @@
 				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-139", 3 ],
+					"order" : 0,
+					"source" : [ "obj-130", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-139", 2 ],
+					"order" : 1,
+					"source" : [ "obj-130", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-139", 1 ],
+					"order" : 2,
+					"source" : [ "obj-130", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-139", 0 ],
+					"order" : 3,
+					"source" : [ "obj-130", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-114", 0 ],
+					"source" : [ "obj-132", 0 ]
 				}
 
 			}
@@ -4389,6 +5184,20 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"source" : [ "obj-19", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-129", 0 ],
+					"source" : [ "obj-19", 7 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-21", 0 ],
 					"source" : [ "obj-19", 0 ]
 				}
@@ -4404,6 +5213,20 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-27", 0 ],
+					"source" : [ "obj-19", 5 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-31", 0 ],
+					"source" : [ "obj-19", 8 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-33", 0 ],
 					"source" : [ "obj-19", 1 ]
 				}
@@ -4412,7 +5235,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-49", 0 ],
-					"order" : 1,
+					"order" : 0,
 					"source" : [ "obj-19", 3 ]
 				}
 
@@ -4420,15 +5243,32 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-63", 0 ],
-					"source" : [ "obj-19", 4 ]
+					"order" : 2,
+					"source" : [ "obj-19", 6 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-64", 0 ],
-					"order" : 0,
+					"order" : 1,
 					"source" : [ "obj-19", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-67", 4 ],
+					"order" : 0,
+					"source" : [ "obj-19", 6 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-67", 3 ],
+					"order" : 1,
+					"source" : [ "obj-19", 6 ]
 				}
 
 			}
@@ -4581,6 +5421,66 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-29", 1 ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-29", 0 ],
+					"source" : [ "obj-27", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-137", 3 ],
+					"order" : 0,
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-137", 2 ],
+					"order" : 1,
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-137", 1 ],
+					"order" : 2,
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-137", 0 ],
+					"order" : 3,
+					"source" : [ "obj-29", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 1 ],
+					"source" : [ "obj-31", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-40", 0 ],
+					"source" : [ "obj-31", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-43", 0 ],
 					"source" : [ "obj-33", 1 ]
 				}
@@ -4609,21 +5509,81 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 1 ],
+					"destination" : [ "obj-51", 1 ],
+					"source" : [ "obj-38", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-51", 0 ],
+					"source" : [ "obj-38", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-140", 3 ],
+					"order" : 0,
+					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-140", 2 ],
+					"order" : 1,
+					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-140", 1 ],
+					"order" : 2,
+					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-140", 0 ],
+					"order" : 3,
+					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 1 ],
+					"source" : [ "obj-42", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-48", 0 ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-133", 1 ],
 					"source" : [ "obj-43", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 2 ],
+					"destination" : [ "obj-133", 2 ],
 					"source" : [ "obj-44", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 3 ],
+					"destination" : [ "obj-133", 3 ],
 					"source" : [ "obj-45", 0 ]
 				}
 
@@ -4644,6 +5604,38 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-138", 3 ],
+					"order" : 0,
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 2 ],
+					"order" : 1,
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 1 ],
+					"order" : 2,
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 0 ],
+					"order" : 3,
+					"source" : [ "obj-48", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-59", 0 ],
 					"source" : [ "obj-49", 0 ]
 				}
@@ -4653,6 +5645,38 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 3 ],
+					"order" : 0,
+					"source" : [ "obj-51", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 2 ],
+					"order" : 1,
+					"source" : [ "obj-51", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 1 ],
+					"order" : 2,
+					"source" : [ "obj-51", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-138", 0 ],
+					"order" : 3,
+					"source" : [ "obj-51", 0 ]
 				}
 
 			}
@@ -4714,7 +5738,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-52", 1 ],
+					"destination" : [ "obj-135", 3 ],
 					"order" : 0,
 					"source" : [ "obj-61", 0 ]
 				}
@@ -4722,8 +5746,24 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-52", 0 ],
+					"destination" : [ "obj-135", 2 ],
 					"order" : 1,
+					"source" : [ "obj-61", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-135", 1 ],
+					"order" : 2,
+					"source" : [ "obj-61", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-135", 0 ],
+					"order" : 3,
 					"source" : [ "obj-61", 0 ]
 				}
 
@@ -4737,14 +5777,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 1 ],
-					"source" : [ "obj-63", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-65", 0 ],
+					"destination" : [ "obj-120", 0 ],
 					"source" : [ "obj-63", 0 ]
 				}
 
@@ -4758,7 +5791,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-66", 1 ],
+					"destination" : [ "obj-136", 3 ],
 					"order" : 0,
 					"source" : [ "obj-65", 0 ]
 				}
@@ -4766,9 +5799,48 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-66", 0 ],
+					"destination" : [ "obj-136", 2 ],
 					"order" : 1,
 					"source" : [ "obj-65", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-136", 1 ],
+					"order" : 2,
+					"source" : [ "obj-65", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-136", 0 ],
+					"order" : 3,
+					"source" : [ "obj-65", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-127", 0 ],
+					"order" : 0,
+					"source" : [ "obj-67", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-132", 0 ],
+					"source" : [ "obj-67", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-38", 0 ],
+					"order" : 1,
+					"source" : [ "obj-67", 0 ]
 				}
 
 			}
@@ -4788,7 +5860,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-133", 0 ],
 					"source" : [ "obj-72", 0 ]
 				}
 
@@ -5065,47 +6137,157 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-71" : [ "Transp", "Transp", 0 ],
-			"obj-58" : [ "Glide[1]", "Glide", 0 ],
-			"obj-59" : [ "Transp[1]", "Transp", 0 ],
-			"obj-18" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-51" : [ "live.gain~[6]", "live.gain~", 0 ],
 			"obj-65" : [ "live.gain~[2]", "live.gain~", 0 ],
 			"obj-62" : [ "live.gain~[1]", "live.gain~", 0 ],
-			"obj-22" : [ "Glide", "Glide", 0 ]
+			"obj-40" : [ "live.gain~[4]", "live.gain~", 0 ],
+			"obj-48" : [ "live.gain~[5]", "live.gain~", 0 ],
+			"obj-130" : [ "live.gain~[7]", "live.gain~", 0 ],
+			"obj-18" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-22" : [ "Glide", "Glide", 0 ],
+			"obj-29" : [ "live.gain~[3]", "live.gain~", 0 ],
+			"obj-71" : [ "Transp", "Transp", 0 ],
+			"obj-58" : [ "Glide[1]", "Glide", 0 ],
+			"obj-59" : [ "Transp[1]", "Transp", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
 				"name" : "collect_point.wav",
 				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-v2/maxpatches/sfx",
-				"patcherrelativepath" : "./sfx",
+				"patcherrelativepath" : "../../music_snake-v2/maxpatches/sfx",
 				"type" : "WAVE",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Pacman-death-sound.mp3",
 				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-v2/maxpatches/sfx/Pacman-death-sound",
-				"patcherrelativepath" : "./sfx/Pacman-death-sound",
+				"patcherrelativepath" : "../../music_snake-v2/maxpatches/sfx/Pacman-death-sound",
 				"type" : "Mp3 ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "A brawl is surely brewing!.mp3",
-				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer",
 				"patcherrelativepath" : "../announcer",
 				"type" : "Mp3 ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "A good day for a swell battle!.mp3",
-				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer",
 				"patcherrelativepath" : "../announcer",
 				"type" : "Mp3 ",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "A great slam and then some!.mp3",
-				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-v3/announcer",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer",
 				"patcherrelativepath" : "../announcer",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Here's a real high class bout!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer",
+				"patcherrelativepath" : "../announcer",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "This match will get red hot!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer",
+				"patcherrelativepath" : "../announcer",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "And begin!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin",
+				"patcherrelativepath" : "../announcer/begin",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Here goes!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin",
+				"patcherrelativepath" : "../announcer/begin",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "It's on!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin",
+				"patcherrelativepath" : "../announcer/begin",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Now go!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin",
+				"patcherrelativepath" : "../announcer/begin",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "You're up!.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/announcer/begin",
+				"patcherrelativepath" : "../announcer/begin",
+				"type" : "Mp3 ",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "this_games_winner_is.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/End Round Narrator",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/End Round Narrator",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "1.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "2.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "3.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "4.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "5.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Game!.dsp.wav",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"patcherrelativepath" : "../SSBM_Misc_Narrator/Character Call voices, Classic narrator, Narrator at Melee Mode",
+				"type" : "WAVE",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "Super Mario Bros (NES) Music - Level Clear.mp3",
+				"bootpath" : "~/Desktop/Nicholas Tsang MUS 407/music_snake-master/maxpatches/sfx",
+				"patcherrelativepath" : "./sfx",
 				"type" : "Mp3 ",
 				"implicit" : 1
 			}
