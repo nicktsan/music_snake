@@ -48,7 +48,7 @@ class Player:
 	ai = False
 	angle = 90
 	alive = True
-	respawn = 0
+	respawn_timer = 0
  
 	updateCountMax = 2
 	updateCount = 0
@@ -60,13 +60,9 @@ class Player:
 		self.y = []
  
 		 # initial positions, no collision.
-		self.x.append(x0)
-		self.x.append(x0)
-		self.x.append(x0)
-
-		self.y.append(y0)
-		self.y.append(y0+1)
-		self.y.append(y0+2)
+		for i in range(0, length):
+			self.x.append(x0)
+			self.y.append(y0+i)
  
 	def update(self, height, width):
 		if self.hp > 0:
@@ -107,53 +103,67 @@ class Player:
 					
 	def kill(self):
 		self.hp = 0
-		self.x = 0
-		self.y = 0
+		self.x.clear()
+		self.y.clear()
 		self.length = 0
 		self.alive = False
+		self.direction = "up"
+		self.respawn_timer = 5
 		#for python 2.7
 		#print ("Player %i died!") % self.player_id
 		#for python 3.6.4
 		print("player", self.player_id, "died!")
 		death_trigger(self.length, self.player_id)
 
-	def respawn(self, board, board_width, board_height):
+	def respawn(self, board, board_width, board_height, length):
 		x_respawn = random.randint(5, board_width - 6)
 		y_respawn = random.randint(5, board_height - 6)
 		valid_spawn = False
-		"""
 
-
-		TO BE COMPLETED
-
-
-		"""
+		#check within a 2 tile radius of respawn for obstacles
 		while not valid_spawn:
 			valid_spawn = True
 			while is_obstacle(x_respawn, y_respawn, board):
 				x_respawn = random.randint(5, board_width - 6)
 				y_respawn = random.randint(5, board_height - 6)
 
-			for i in range(0, 3):
+			for i in range(0, length):
 				#for radius = 0
 				if is_obstacle(x_respawn, y_respawn+i, board):
-					valid_spawn = False	
+					valid_spawn = False
+					break
 
 				#for radius = 1
-				for x_displacement in range(-1, 2):
+				for dX in range(-1, 2):
 					#calculate absolute value of y
-					y_displacement = 1 - abs(x_displacement)
-					neg_y_displacement = y_displacement*-1
-					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+					dY = 1 - abs(dX)
+					neg_dY = dY*-1
+					if is_obstacle(x_respawn+dX, y_respawn+i+dY, board) or is_obstacle(x_respawn+dX, y_respawn+i+neg_dY, board):
 						valid_spawn = False
+						break
 
 				#for radius = 2
-				for x_displacement in range(-2, 3):
+				for dX in range(-2, 3):
 					#calculate absolute value of y
-					y_displacement = 2 - abs(x_displacement)
-					neg_y_displacement = y_displacement*-1
-					if is_obstacle(x_respawn+x_displacement, y_respawn+i+y_displacement, board) or is_obstacle(x_respawn+x_displacement, y_respawn+i+neg_y_displacement, board):
+					dY = 2 - abs(dX)
+					neg_dY = dY*-1
+					if is_obstacle(x_respawn+dX, y_respawn+i+dY, board) or is_obstacle(x_respawn+dX, y_respawn+i+neg_dY, board):
 						valid_spawn = False
+						break
+
+			self.hp = 100
+			self.x = []
+			self.y = []
+			self.direction = "up"
+			self.length = 3
+			self.angle = 90
+			self.alive = True
+			self.respawn_timer = 0
+			self.updateCountMax = 2
+			self.updateCount = 0
+			for i in range(0, length):
+				self.x.append(x_respawn)
+				self.y.append(y_respawn+i)
 
 	def moveRight(self):
 		self.direction = "right"
