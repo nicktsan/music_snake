@@ -283,9 +283,14 @@ class App:
 					quit()
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_ESCAPE:
-						pygame.quit()
-						kill_server()
-						quit()
+						if setting_ai and setting_food:
+							setting_ai = False
+						elif not setting_ai and setting_food:
+							setting_food = False
+						else:
+							pygame.quit()
+							kill_server()
+							quit()
 					if setting_ai == True and setting_food == True:
 						if event.key == pygame.K_RETURN:
 							try:
